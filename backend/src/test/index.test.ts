@@ -3,17 +3,13 @@ import { createApp } from "../app";
 import { Application } from "express";
 import * as http from "http"
 import { App } from "../app";
+import { AppDataSource } from "../database";
 
 let app : App
 
 beforeAll(async () => {
-    app = await createApp()
+    await AppDataSource.initialize()
 })
-
-afterAll(async () => {
-    app.server.close()
-})
-
 
 test("Testing jest setup", () => {
     expect(true).toBe(true)

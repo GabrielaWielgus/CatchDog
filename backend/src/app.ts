@@ -10,6 +10,9 @@ import { User } from "./database/entities/User"
 import { AppDataSource } from "./database"
 import { UserRepository } from "./database/repositories/user.repository"
 
+import authRouter from "./routes/auth"
+import { errorHandler, errorResponder } from "./middleware/error"
+
 export interface App {
     app:express.Application, 
     server:http.Server
@@ -31,18 +34,13 @@ export const createApp = async () : Promise<App> => {
     app.use(express.json())
 
     // Endpoints
-    // app.use("path", router)
+    app.use("/auth", authRouter)
     // ... 
     // ...
 
     // Global error handling
-    app.use((error:CustomError, req:Request, res:Response, next:express.NextFunction) => {
-        const body = {
-            message: error.message,
-            data: error.data
-        }
-        res.status(error.statusCode || 500).json(body)
-    })
+    app.use(errorHandler)
+    app.use(errorResponder)
 
     // Start http server
     const port = process.env.NODE_ENV === "test" ? process.env.SERVER_PORT : SERVER_PORT

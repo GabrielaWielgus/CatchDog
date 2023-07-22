@@ -6,5 +6,5 @@ import { AppDataSource } from "../../database";
 export default async (globalConfig: any, projectConfig: any) => {
     const app: App = await createApp();
     global.app = app.app;
-    global.server = app.server
+    global.server = app.server;
 }

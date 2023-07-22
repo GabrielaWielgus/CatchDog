@@ -2,11 +2,14 @@ import { ValidationError } from "express-validator"
 
 export class CustomError extends Error{
     public statusCode: number | null = null
-    public data: ValidationError[] | null = null
+    public errors: ValidationError[] | null = null
 
-    constructor(msg: string, code: number, data?: ValidationError[]){
+    constructor(msg: string, code: number, errors?: ValidationError[]){
         super(msg)
-        this.data = data
+        this.name = Error.name
+        this.errors = errors
         this.statusCode = code
+        Object.setPrototypeOf(this, new.target.prototype)
+        Error.captureStackTrace(this)
     }
 }
