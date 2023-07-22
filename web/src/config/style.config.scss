@@ -1,0 +1,74 @@
+/* Fonts */
+@font-face {
+    font-family: poppins-light;
+    src: url("src/assets/fonts/Poppins/Poppins-Light.ttf") format("truetype");
+}
+@font-face {
+    font-family: poppins-regular;
+    src: url("src/assets/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: poppins-medium;
+    src: url("src/assets/fonts/Poppins/Poppins-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: poppins-semibold;
+    src: url("src/assets/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
+}
+@font-face {
+    font-family: poppins-bold;
+    src: url("src/assets/fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+}
+
+$color-primary: #6C5DD3;
+$color-secondary: #FFCE73;
+$color-white: #FEFEFE;
+$color-dark: #1B1D21;
+
+$font-poppins-light: poppins-light;
+$font-poppins-medium: poppins-medium;
+$font-poppins-regular: poppins-regular;
+$font-poppins-bold: poppins-bold;
+
+
+@mixin full-viewport{
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+
+    padding: 2em 0;
+
+    background-color: $color-dark;
+    font-family: $font-poppins-regular;
+    font-size: 18px;
+}
+
+$breakpoint-phone: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-laptop: 992px;
+$breakpoint-desktop: 1200px;
+
+// Media queries template
+/*
+@media all and (min-width: $breakpoint-phone){
+
+}
+
+@media all and (min-width: $breakpoint-tablet){
+    .container{
+        width: 60%;
+    }
+}
+
+@media all and (min-width: $breakpoint-laptop){
+    .container{
+        width: 50%;
+    }
+}
+
+@media all and (min-width: $breakpoint-desktop){
+    .container{
+        width: 30%;
+    }
+}
+*/
