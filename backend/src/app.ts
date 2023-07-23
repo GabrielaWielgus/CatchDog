@@ -12,6 +12,7 @@ import { UserRepository } from "./database/repositories/user.repository"
 
 import authRouter from "./routes/auth"
 import { errorHandler, errorResponder } from "./middleware/error"
+import { seed } from "./database/seeders"
 
 export interface App {
     app:express.Application, 
@@ -22,7 +23,7 @@ export const createApp = async () : Promise<App> => {
     const app = express()
 
     await AppDataSource.initialize()
-   
+    await seed()
 
     // Cors
     app.use(cors({
