@@ -10,7 +10,7 @@ export const AppNavigator = () => {
 
     return(
         <Stack.Navigator
-            initialRouteName="Map"
+            initialRouteName="Signin"
             screenOptions={{
                 headerStyle: {
                 backgroundColor: 'transparent',
