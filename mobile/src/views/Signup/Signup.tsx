@@ -6,10 +6,15 @@ import { Image } from "react-native"
 import { useSignup } from "./useSignup"
 import { Octicons } from "@expo/vector-icons"
 import Input from "../../components/TextInput/Input"
+import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../../config/Colors"
+import { StackParamList } from "../../navigators/AppNavigator"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { NavigationParams } from "../../navigators"
 
 const Signup = () => {
     const {formik, error} = useSignup()
+    const navigation = useNavigation<NavigationParams>()
 
     return(
         <KeyboardAwareScrollView style={style.signin}>
@@ -80,9 +85,9 @@ const Signup = () => {
                 </TouchableOpacity>
                 <View style={style.extraView}>
                     <Text style={style.extraText}>Have an account already?</Text>
-                    {/* <Text style={style.textLink} onPress={() => navigation.navigate("Signin")}>
+                    <Text style={style.textLink} onPress={() => navigation.navigate("Signin")}>
                         <Text style={style.textLinkContent}> Login </Text>
-                    </Text> */}
+                    </Text>
                 </View>
             </View>
         </KeyboardAwareScrollView>

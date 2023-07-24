@@ -1,15 +1,16 @@
 
 import { useFormik } from "formik"
 import {SigninRequest, SigninResponse} from "@backend/controllers/auth/signin"
-
+import { useNavigation } from "@react-navigation/native"
 import * as Yup from "yup"
 import { useState } from "react"
 import axios from "axios"
 import { endpoints } from "../../config/api"
-
+import { NavigationParams } from "../../navigators"
 
 export const useSignin = () => {
     const [error, setError] = useState("")
+    const navigation = useNavigation<NavigationParams>()
 
     const initialValues : SigninRequest = {
         email: "",
@@ -26,13 +27,11 @@ export const useSignin = () => {
             const response = await axios.post(endpoints.auth.signin, data)
             if(response.status === 200){
                 const data = response.data as SigninResponse
+                navigation.navigate("Welcome")
             }
         }catch(err){
             if(err instanceof axios.AxiosError){
-                //setError(err.response?.data.message)
-                console.log(err.response?.data)
                 if(err.response?.data.errors){
-                    console.log(err.response.data.errors)
                     setError(err.response?.data.errors[0].msg)
                 }
             }

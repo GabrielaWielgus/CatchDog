@@ -7,12 +7,21 @@ import { useSignin } from "./useSignin"
 import { Octicons } from "@expo/vector-icons"
 import Input from "../../components/TextInput/Input"
 import { Colors } from "../../config/Colors"
+import { useNavigation } from "@react-navigation/native"
+import { StackParamList } from "../../navigators/AppNavigator"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { StatusBar } from "expo-status-bar"
+
+
+
 
 const Signin = () => {
     const {formik, error} = useSignin()
+    const navigation = useNavigation<StackNavigationProp<StackParamList>>()
 
     return(
         <KeyboardAwareScrollView style={style.signin}>
+            <StatusBar style="dark"/>
             <View style={style.imageWrapper}>
                 <Image source={require("../../assets/img/background-login.png")} resizeMode="cover" style={style.image} />
             </View>
@@ -47,9 +56,10 @@ const Signin = () => {
                 </TouchableOpacity>
                 <View style={style.extraView}>
                     <Text style={style.extraText}>Don't have an account already?</Text>
-                    {/* <Text style={style.textLink} onPress={() => navigation.navigate("Signup")}>
+                    <Text style={style.textLink} onPress={() => navigation.navigate("Signup")}>
                         <Text style={style.textLinkContent}> Signup</Text>
-                    </Text> */}
+                    </Text> 
+                    
                 </View>
             </View>
         </KeyboardAwareScrollView>
