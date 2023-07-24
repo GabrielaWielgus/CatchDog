@@ -29,7 +29,7 @@ export const signin = async (req:Request, res:Response, next:NextFunction) => {
         if(!match){
             throw new CustomError("Wrong password", HttpStatus.UNAUTHORIZED)
         }
-
+        
         const token = jwt.sign({userID: user.id, email: user.email}, SECRET_KEY)
         const resData : SigninResponse = {
             token: token,

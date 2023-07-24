@@ -28,6 +28,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-redux": "^8.1.1",
     "redux": "^4.2.1",
+    "styled-components": "^6.0.5",
     "yup": "^1.2.0"
   },
   "devDependencies": {

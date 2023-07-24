@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker"
 
 export const seedUser = async () => {
     const user = UserRepository.create({
-        email: "joedoe@gmail.com",
+        email: "Joedoe@gmail.com",
         firstName: "Joe",
         lastName: "Doe",
         password: "test123"

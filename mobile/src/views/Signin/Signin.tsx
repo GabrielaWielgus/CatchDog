@@ -1,15 +1,12 @@
-import { Pressable, SafeAreaView, TextInput, View } from "react-native"
+import { TouchableOpacity, View } from "react-native"
 import { Text } from "react-native"
 import { style } from "./style"
-import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { useSelector } from "react-redux"
-import { RootState } from "../../redux/store"
-import { counterSlice, increment } from "../../redux/features/counter"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
-import { StatusBar } from "expo-status-bar"
 import { Image } from "react-native"
 import { useSignin } from "./useSignin"
-import { Button } from "react-native"
+import { Octicons } from "@expo/vector-icons"
+import Input from "../../components/TextInput/Input"
+import { Colors } from "../../config/Colors"
 
 const Signin = () => {
     const {formik, error} = useSignin()
@@ -21,31 +18,39 @@ const Signin = () => {
             </View>
             
             <View style={style.formWrapper}>
-                <TextInput 
-                     placeholder="Email"
-                     onChangeText={formik.handleChange('email')}
-                     value={formik.values.email}
-                     onBlur={formik.handleBlur('email')}
+                <Input 
+                    placeholder="Email"
+                    onChangeText={formik.handleChange('email')}
+                    value={formik.values.email}
+                    onBlur={formik.handleBlur("email")}
+                    password={false}
+                    label="Email"
+                    icon={<Octicons name="mail" size={30} color={Colors.text_primary}/>}
+                    error={formik.touched.email && formik.errors.email?.length!==0}
+                    errorText={formik.errors.email}
                 />
-                {
-                    formik.touched.email && formik.errors.email ? (
-                        <Text>{formik.errors.email}</Text>
-                    ) : null
-                }
-                <TextInput
+                <Input
                     placeholder="Password"
                     onChangeText={formik.handleChange('password')}
                     value={formik.values.password}
-                    onBlur={formik.handleBlur('password')}
-                    secureTextEntry
+                    onBlur={formik.handleBlur("password")}
+                    password={true}
+                    label="Password"
+                    icon={<Octicons name="lock" size={30} color={Colors.text_primary}/>}
+                    error={formik.touched.password && formik.errors.password?.length!==0}
+                    errorText={formik.errors.password}
                 />
-                {
-                    formik.touched.password && formik.errors.password ? (
-                        <Text>{formik.errors.password}</Text>
-                    ) : null
-                }
+                
                 {error ? <Text>{error}</Text> : null}
-                <Button title="Login" onPress={() => {formik.handleSubmit()}} />
+                <TouchableOpacity style={style.styledButton} onPress={() => {formik.handleSubmit()}}>
+                    <Text style={style.textButton}>Login</Text>
+                </TouchableOpacity>
+                <View style={style.extraView}>
+                    <Text style={style.extraText}>Don't have an account already?</Text>
+                    {/* <Text style={style.textLink} onPress={() => navigation.navigate("Signup")}>
+                        <Text style={style.textLinkContent}> Signup</Text>
+                    </Text> */}
+                </View>
             </View>
         </KeyboardAwareScrollView>
     )

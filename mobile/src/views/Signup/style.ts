@@ -7,7 +7,7 @@ export const style = StyleSheet.create({
         flex: 1
     },
     imageWrapper: {
-        height: win.height/1.7,
+        height: win.height/2.5,
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
@@ -22,7 +22,6 @@ export const style = StyleSheet.create({
         width: win.width,
         alignItems: "center",
         flexDirection: "column",
-        gap: 10,
         paddingHorizontal: 20,
         marginTop: 10
     },
