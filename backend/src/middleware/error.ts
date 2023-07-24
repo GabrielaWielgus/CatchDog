@@ -15,5 +15,6 @@ export const errorResponder = (error:CustomError, req:Request, res:Response, nex
         message: error.message,
         errors: error.errors
     }
+    console.log(body)
     res.status(error.statusCode || 500).json(body)
 }
