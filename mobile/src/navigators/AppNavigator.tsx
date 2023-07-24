@@ -4,18 +4,26 @@ import Signin from "../views/Signin/Signin"
 import Signup from "../views/Signup/Signup"
 import MapNavigator from "./MapNavigator"
 import Welcome from "../views/Welcome/Welcome"
+import { Colors } from "../config/Colors"
+
+export type StackParamList = {
+    MapNavigator: undefined;
+    Signin: undefined;
+    Signup: undefined;
+    Welcome: undefined;
+};
 
 export const AppNavigator = () => {
-    const Stack = createStackNavigator()
+    const Stack = createStackNavigator<StackParamList>()
 
     return(
         <Stack.Navigator
-            initialRouteName="Welcome"
+            initialRouteName="Signin"
             screenOptions={{
                 headerStyle: {
                 backgroundColor: 'transparent',
                 },
-                //headerTintColor: Colors.beige,
+                headerTintColor: Colors.beige,
                 headerTransparent: true,
                 headerTitle: '',
                 headerLeftContainerStyle: {

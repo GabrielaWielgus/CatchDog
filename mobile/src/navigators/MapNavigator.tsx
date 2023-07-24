@@ -7,6 +7,15 @@ import Chat from "../views/Chat/Chat"
 import HealthRecord from "../views/HealthRecord/HealtRecord"
 import Settings from "../views/Settings/Settings"
 
+
+export type TabsParamList = {
+  Map: undefined;
+  Walks: undefined;
+  Chat: undefined;
+  HealthRecord: undefined;
+  Settings: undefined;
+};
+
 const MapNavigator = () => {
     const Tab = createBottomTabNavigator()
 
