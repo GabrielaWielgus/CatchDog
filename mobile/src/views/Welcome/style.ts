@@ -45,20 +45,24 @@ export const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  styledButton: {
+  styledButton:{
     padding: 15,
     backgroundColor: Colors.button_primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
     marginVertical: 5,
     height: 60,
-    width: 200
-  },
-  buttonText: {
-    color: Colors.background,
-    fontSize: 19,
-  },
+    width: 200,
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
+},
+textButton:{
+    color: Colors.text_primary,
+    fontSize: 19
+},
   line: {
     height: 1,
     width: '100%',

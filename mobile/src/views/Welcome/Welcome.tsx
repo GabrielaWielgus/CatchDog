@@ -3,12 +3,13 @@ import { Text, Image, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native";
 import { style } from "./style"
 import { StatusBar } from "expo-status-bar";
-import { StackParamList } from "../../navigators/AppNavigator"
-import { StackNavigationProp } from "@react-navigation/stack"
 import { NavigationParams } from "../../navigators";
+import { useAppSelector } from "../../redux/hooks";
+
 
 const Welcome = () => {
     const navigation = useNavigation<NavigationParams>()
+    const user = useAppSelector(state => state.user)
 
     return(
         <>
@@ -17,12 +18,12 @@ const Welcome = () => {
                 <View style={style.welcomeContainer}>
                 <Image style={style.welcomeImage} resizeMode="cover" source={require('../../assets/img/background-welcome.png')}></Image>
                 <Text style={style.pageTitle}>Successfully logged in!</Text>
-                <Text style={style.subTitle}>{}</Text>{/* name */}
+                <Text style={style.subTitle}>{user.email}</Text>{/* name */}
                 <Text style={style.subTitle}>{}</Text>{/* mail */}
                     <View style={style.styledFormArea}> 
                         <Image style={style.avatar} resizeMode="cover" source={require('../../assets/img/profile-user.png')}></Image>
-                        <TouchableOpacity style={style.styledButton} onPress={() => navigation.navigate("MapNavigator")}>
-                            <Text style={style.buttonText}> Next </Text>
+                        <TouchableOpacity style={style.styledButton} onPress={() => navigation.replace("MapNavigator")}>
+                            <Text style={style.textButton}> Next </Text>
                         </TouchableOpacity>
                     </View>
                 </View>

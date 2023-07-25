@@ -7,6 +7,7 @@ import { useState } from "react"
 import axios from "axios"
 import { endpoints } from "../../config/api"
 import { NavigationParams } from "../../navigators"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const useSignin = () => {
     const [error, setError] = useState("")
@@ -27,6 +28,10 @@ export const useSignin = () => {
             const response = await axios.post(endpoints.auth.signin, data)
             if(response.status === 200){
                 const data = response.data as SigninResponse
+
+                await AsyncStorage.setItem("token", data.token)
+                await AsyncStorage.setItem("email", data.email)
+
                 navigation.navigate("Welcome")
             }
         }catch(err){

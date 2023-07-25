@@ -9,8 +9,7 @@ export const style = StyleSheet.create({
     borderRadius: 5,
     fontSize: 18,
     height: 50,
-    marginVertical: 5,
-    marginBottom: 10,
+    marginBottom: 1,
     color: Colors.text_primary,
     width: "100%"
   },
@@ -18,6 +17,7 @@ export const style = StyleSheet.create({
     color: Colors.text_primary,
     fontSize: 15,
     textAlign: 'left',
+    marginBottom: 3,
   },
   leftIconContainer: {
     left: 15,

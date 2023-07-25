@@ -59,7 +59,6 @@ const Signin = () => {
                     <Text style={style.textLink} onPress={() => navigation.navigate("Signup")}>
                         <Text style={style.textLinkContent}> Signup</Text>
                     </Text> 
-                    
                 </View>
             </View>
         </KeyboardAwareScrollView>

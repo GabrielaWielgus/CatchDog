@@ -13,12 +13,16 @@ export type StackParamList = {
     Welcome: undefined;
 };
 
-export const AppNavigator = () => {
+type props = {
+    initialRoute: keyof StackParamList
+}
+
+export const AppNavigator = (props:props) => {
     const Stack = createStackNavigator<StackParamList>()
 
     return(
         <Stack.Navigator
-            initialRouteName="Signin"
+            initialRouteName={props.initialRoute}
             screenOptions={{
                 headerStyle: {
                 backgroundColor: 'transparent',

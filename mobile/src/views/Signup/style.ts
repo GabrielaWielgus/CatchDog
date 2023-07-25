@@ -7,7 +7,7 @@ export const style = StyleSheet.create({
         flex: 1
     },
     imageWrapper: {
-        height: win.height/2.5,
+        height: win.height/2.6,
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
@@ -29,6 +29,7 @@ export const style = StyleSheet.create({
         justifyContent: "center",
         flexDirection: "row",
         alignItems: "center",
+        marginBottom: 50
     },
     extraText:{
         justifyContent: "center",
@@ -42,7 +43,8 @@ export const style = StyleSheet.create({
     },
     textLinkContent:{
         color: Colors.light_green,
-        fontSize: 15
+        fontSize: 15,
+        marginBottom: 5,
     },
     styledButton:{
         padding: 15,
@@ -51,6 +53,7 @@ export const style = StyleSheet.create({
         alignItems: "center",
         borderRadius: 30,
         marginVertical: 5,
+        marginBottom: 25,
         height: 60,
         width: 200,
         shadowColor: "black",
