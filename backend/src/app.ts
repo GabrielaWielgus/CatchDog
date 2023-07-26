@@ -14,6 +14,8 @@ import authRouter from "./routes/auth"
 import { errorHandler, errorResponder } from "./middleware/error"
 import { seed } from "./database/seeders"
 
+import { initSocket } from "./socket"
+
 export interface App {
     app:express.Application, 
     server:http.Server
@@ -48,6 +50,11 @@ export const createApp = async () : Promise<App> => {
     const server = app.listen(port, () => {
         console.log(`Listening on ${port}`);
     });
+
+    const socket = initSocket(server)
+    socket.on("connection", socket => {
+        console.log("New connection")
+    })
     
     return {app, server}
 }

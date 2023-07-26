@@ -15,6 +15,9 @@ export interface SigninRequest {
 export interface SigninResponse {
     token: string
     email: string
+    firstName: string
+    lastName: string
+    userID: number
 }
 
 export const signin = async (req:Request, res:Response, next:NextFunction) => {
@@ -33,7 +36,10 @@ export const signin = async (req:Request, res:Response, next:NextFunction) => {
         const token = jwt.sign({userID: user.id, email: user.email}, SECRET_KEY)
         const resData : SigninResponse = {
             token: token,
-            email: user.email
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            userID: user.id
         }
         res.status(HttpStatus.OK).json(resData)
     }catch(err){
