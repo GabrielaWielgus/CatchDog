@@ -7,10 +7,18 @@ import { StatusBar } from 'expo-status-bar';
 import useLocationTracking from './hooks/useLocationTracking';
 import { style } from "./style";
 import { TouchableOpacity, View } from 'react-native';
+import { useEffect } from 'react';
 
 const Map = () => {
   const [formVisible, setFormVisible] = useState(false);
   const { tracking, startLocationTracking, stopLocationTracking} = useLocationTracking();
+
+  useEffect(() => {
+    
+    return () => {
+      console.log("Im unmounting")
+    }
+  }, [])
 
   return (
     <View style={style.mapViewStyle}>

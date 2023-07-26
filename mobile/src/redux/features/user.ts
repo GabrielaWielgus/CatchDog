@@ -10,10 +10,7 @@ interface User {
 const initialState: User = {
     firstName: "",
     lastName: "",
-    email: "",
-    walk: {
-        
-    }
+    email: ""
 }
 
 export const userSlice = createSlice({
