@@ -3,29 +3,33 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 import { style } from "./style";
 import CustomMarker from './CustomMarker';
 import { useAppSelector } from '../../redux/hooks';
-import {Region} from "react-native-maps"
+
 interface props {
   isTracking: boolean;
 }
 
 export default function MapContainer(props:props) {
   const walks = useAppSelector(state => state.walks)  
+  const user = useAppSelector(state => state.user)
 
-  const reg = walks[5] ? 
-  {longitude: walks[5].longitude, 
-    latitude: walks[5].lattitude,
-    latitudeDelta: 5,
-    longitudeDelta: 5
-  } : undefined
-
+  let reg = undefined;
+  if(walks[user.userID as number]){
+    reg = {
+      longitude: walks[user.userID as number].longitude, 
+      latitude: walks[user.userID as number].latitude,
+      latitudeDelta: 5,
+      longitudeDelta: 5
+    }
+  }
+  
   return (
-    <MapView style={style.map} showsUserLocation={walks[5] === undefined} >
+    <MapView style={style.map} showsUserLocation={walks[user.userID as number] === undefined} >
       {
       Object.keys(walks).map((userID:any, index) => {
         return (
           <Marker
             key={userID}
-            coordinate={{ latitude: walks[userID].lattitude, longitude: walks[userID].longitude }}
+            coordinate={{ latitude: walks[userID].latitude, longitude: walks[userID].longitude }}
           >
             <CustomMarker />
             <Callout style={style.calloutContainer}>

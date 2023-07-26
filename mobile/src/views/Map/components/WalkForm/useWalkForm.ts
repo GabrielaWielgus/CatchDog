@@ -4,6 +4,8 @@ import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useAppDispatch } from "../../../../redux/hooks"
 import { walksSlice } from "../../../../redux/features/walks"
+import { useAppSelector } from "../../../../redux/hooks"
+import * as Location from "expo-location"
 
 export type BehavioralDisorders = "none" | "noiseSensitivity" | "fear" | "aggression"
 export type OnLean = "yes" | "no"
@@ -21,6 +23,7 @@ interface props {
 
 export const useWalkForm = (props : props) => {
     const dispatch = useAppDispatch()
+    const user = useAppSelector(state => state.user)
     
     const initialValues : FormValues = {
         onLean: "yes",
@@ -35,18 +38,19 @@ export const useWalkForm = (props : props) => {
     })
 
     const handleSubmit = async (data:FormValues) => {
+        const location = await Location.getCurrentPositionAsync()
         dispatch(walksSlice.actions.setWalkWithID({
-            userID: 5,
+            userID: user.userID as number,
             walk: {
-                lattitude: 0,
-                longitude: 0,
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
                 walkDescription: data.walkDescription,
                 behavioralDisorders: data.behavioralDisorders,
-                userID: 5,
                 onLean: data.onLean,
-                userName: "Joe"
+                userName: user.firstName
             }
         }))
+        // TODO Send walkStart msg to server
         await props.startLocationTracking()
         props.closeForm()
     }

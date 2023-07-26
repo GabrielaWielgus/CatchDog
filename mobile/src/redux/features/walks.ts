@@ -5,9 +5,8 @@ import { PayloadAction } from "@reduxjs/toolkit"
 
 export interface walk extends FormValues{
     longitude: number
-    lattitude: number
+    latitude: number
     userName: string
-    userID: number
 }
 
 export interface walks {

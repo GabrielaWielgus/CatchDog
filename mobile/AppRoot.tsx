@@ -22,11 +22,18 @@ const AppRoot = () => {
       try{
         const token = await AsyncStorage.getItem("token")
         const email = await AsyncStorage.getItem("email")
-        if(!token || !email){
+        const firstName = await AsyncStorage.getItem("firstName")
+        const lastName = await AsyncStorage.getItem("lastName")
+        const userID = await AsyncStorage.getItem("userID")
+
+        if(!token || !email || !userID || !firstName || !lastName){
           setInitialRoute("Signin")
         }else{
           dispatch(userSlice.actions.set({
-            email: email
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            userID: JSON.parse(userID)
           }))
           setInitialRoute("Welcome")
           //TODO update redux

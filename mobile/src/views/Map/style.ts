@@ -26,6 +26,10 @@ export const style = StyleSheet.create({
     borderRadius: 50,
     marginVertical: 5,
     height: 60,
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   startWalkButton: {
     position: 'absolute',
@@ -34,6 +38,10 @@ export const style = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   endWalkButton: {
     position: 'absolute',
@@ -42,6 +50,10 @@ export const style = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   buttonText: {
     color: Colors.background,

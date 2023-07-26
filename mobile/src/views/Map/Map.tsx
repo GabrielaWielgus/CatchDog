@@ -9,11 +9,20 @@ import { style } from "./style";
 import { TouchableOpacity, View } from 'react-native';
 import { useEffect } from 'react';
 
+import { mapSocket } from '../../socket';
+
 const Map = () => {
   const [formVisible, setFormVisible] = useState(false);
   const { tracking, startLocationTracking, stopLocationTracking} = useLocationTracking();
 
   useEffect(() => {
+
+    const socketInit = async () => {
+      await mapSocket.connect()
+      console.log(mapSocket.get())
+    }
+
+    socketInit()
     
     return () => {
       console.log("Im unmounting")

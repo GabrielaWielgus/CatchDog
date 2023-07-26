@@ -9,16 +9,24 @@ export const style = StyleSheet.create({
     paddingBottom: '17%',
   },
   walkTitle: {
-    fontSize: 40,
+    fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: Colors.logo_me,
-    marginBottom: 10,
+    color: Colors.beige,
+    paddingTop: '2%',
+  },
+  blurredView: {
+    backgroundColor: Colors.background,
+    borderRadius: 20,
+    padding: 15,
+    width: '50%',
     position: 'absolute',
-    top: '50%',
-    left: 0,
+    top: '40%',
+    left: '20%',
     right: 0,
     zIndex: 1,
+    opacity: 0.9,
+    margin: '2%',
   },
   walkSubtitle: {
     fontSize: 20,
@@ -34,6 +42,9 @@ export const style = StyleSheet.create({
     padding: 15,
     marginBottom: 10,
     marginHorizontal: '2%',
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   boldText: {
     fontWeight: 'bold',
@@ -60,7 +71,7 @@ export const style = StyleSheet.create({
   },
   walksImage: {
     width: '100%',
-    height: 300,
+    height: 250,
     borderRadius: 20,
     marginBottom: 0,
     marginHorizontal: 0,

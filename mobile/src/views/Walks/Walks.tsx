@@ -74,7 +74,9 @@ const Walks = () => {
             source={require('../../assets/img/background-walks.png')}
             style={style.walksImage}
           />
-          <Text style={style.walkTitle}>Your Walks History</Text>
+          <View style={style.blurredView}>
+            <Text style={style.walkTitle}>Walks history</Text>
+          </View>
         </View>
 
         <FlatList

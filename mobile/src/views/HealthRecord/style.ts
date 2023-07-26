@@ -27,16 +27,9 @@ export const style = StyleSheet.create({
     flex: 1,
     marginTop: 10,
   },
-  healthRecordListItem: {
-    backgroundColor: Colors.dark_blue,
-    borderRadius: 15,
-    padding: 15,
-    marginVertical: '2%',
-    marginHorizontal: '2%',
-  },
   healthRecordGoBack: {
     top: '-90%',
-    left: '5%',
+    left: '5%'
   },
   healthRecordCategoryText: {
     color: Colors.beige,
@@ -49,6 +42,9 @@ export const style = StyleSheet.create({
     padding: 15,
     marginVertical: '2%',
     marginHorizontal: '2%',
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   healthRecordBlurredView: {
     backgroundColor: Colors.beige,
@@ -86,6 +82,9 @@ export const style = StyleSheet.create({
     marginHorizontal: '2%',
     flexDirection: 'row',
     alignItems: 'center',
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   healthRecordTitle: {
     fontSize: 20,
@@ -141,6 +140,9 @@ export const style = StyleSheet.create({
     marginHorizontal: '2%',
     flexDirection: 'row',
     alignItems: 'center',
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   subListItemTitle: {
     fontSize: 20,

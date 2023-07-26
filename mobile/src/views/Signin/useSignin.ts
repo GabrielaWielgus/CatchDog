@@ -28,17 +28,25 @@ export const useSignin = () => {
             const response = await axios.post(endpoints.auth.signin, data)
             if(response.status === 200){
                 const data = response.data as SigninResponse
-
-                await AsyncStorage.setItem("token", data.token)
-                await AsyncStorage.setItem("email", data.email)
-
-                navigation.navigate("Welcome")
+                if("token" in data && "userID" in data){
+                    await AsyncStorage.setItem("token", data.token)
+                    await AsyncStorage.setItem("email", data.email)
+                    await AsyncStorage.setItem("userID", JSON.stringify(data.userID))
+                    await AsyncStorage.setItem("firstName", data.firstName)
+                    await AsyncStorage.setItem("lastName", data.lastName)
+                    
+                    navigation.navigate("Welcome")
+                }else{
+                    throw new Error("Missing values")
+                }
             }
         }catch(err){
             if(err instanceof axios.AxiosError){
                 if(err.response?.data.errors){
                     setError(err.response?.data.errors[0].msg)
                 }
+            }else{
+               // TODO handle other errors 
             }
         }
     }

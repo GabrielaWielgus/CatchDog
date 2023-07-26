@@ -64,7 +64,7 @@ const WalkForm = (props:props) => {
                   <Picker.Item label="Aggression" value="aggression" color={Colors.beige} />
                 </MyPicker>
                 <Input
-                  label="Walk Description"
+                  label=""
                   icon={<Foundation name="clipboard-pencil" size={30} color={Colors.text_primary} />}
                   placeholder="Walk description"
                   onChangeText={formik.handleChange('walkDescription')}
