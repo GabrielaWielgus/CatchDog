@@ -20,6 +20,11 @@ export interface SigninResponse {
     userID: number
 }
 
+export interface JWTPayload {
+    userID: number
+    email: string
+}
+
 export const signin = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const data = req.body as SigninRequest
@@ -33,7 +38,13 @@ export const signin = async (req:Request, res:Response, next:NextFunction) => {
             throw new CustomError("Wrong password", HttpStatus.UNAUTHORIZED)
         }
         
-        const token = jwt.sign({userID: user.id, email: user.email}, SECRET_KEY)
+        const payload : JWTPayload = {
+            userID: user.id,
+            email: user.email
+        }
+        const token = jwt.sign(payload, SECRET_KEY, {
+            expiresIn: "12h"
+        })
         const resData : SigninResponse = {
             token: token,
             email: user.email,

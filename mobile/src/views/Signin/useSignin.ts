@@ -41,6 +41,7 @@ export const useSignin = () => {
                 }
             }
         }catch(err){
+            console.log(err)
             if(err instanceof axios.AxiosError){
                 if(err.response?.data.errors){
                     setError(err.response?.data.errors[0].msg)

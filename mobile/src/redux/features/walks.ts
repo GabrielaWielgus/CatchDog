@@ -15,6 +15,10 @@ export interface walks {
 
 const initialState : walks = {}
 
+export interface WalkUpdate {
+    userID: number
+    walk:Partial<walk>
+}
 
 export const walksSlice = createSlice({
     name: "walks",
@@ -23,7 +27,7 @@ export const walksSlice = createSlice({
         set: (state, action: PayloadAction<walks>) => {
             return action.payload
         },
-        setWalkWithID: (state, action: PayloadAction<{userID: number, walk:Partial<walk>}>) => {
+        setWalkWithID: (state, action: PayloadAction<WalkUpdate>) => {
             const { userID, walk } = action.payload;
             state[userID] = { ...state[userID], ...walk };
         },

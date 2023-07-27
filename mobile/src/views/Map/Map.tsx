@@ -8,24 +8,46 @@ import useLocationTracking from './hooks/useLocationTracking';
 import { style } from "./style";
 import { TouchableOpacity, View } from 'react-native';
 import { useEffect } from 'react';
-
+import { WalkUpdate } from '../../redux/features/walks';
 import { mapSocket } from '../../socket';
+import { useAppDispatch } from '../../redux/hooks';
+import { Socket } from 'socket.io-client';
+import { walksSlice } from '../../redux/features/walks';
+import { useAppSelector } from '../../redux/hooks';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Map = () => {
   const [formVisible, setFormVisible] = useState(false);
   const { tracking, startLocationTracking, stopLocationTracking} = useLocationTracking();
+  const user = useAppSelector(state => state.user)
+  const dispatch = useAppDispatch()
+  const navigation = useNavigation()
 
   useEffect(() => {
-
+    let socket : Socket | undefined
     const socketInit = async () => {
-      await mapSocket.connect()
-      console.log(mapSocket.get())
+      await mapSocket.connect(user.userID as number)
+      socket = mapSocket.get() 
+      if(!socket){
+        throw new Error("Socket not available")
+      }
+
+      socket.on("userDisconnect", (userID:number) => {
+        console.log("Someone disconnected")
+        dispatch(walksSlice.actions.deleteWalkWithID(userID))
+      })
+
+      socket.on("walkUpdate", (data:WalkUpdate) => {
+        console.log("Someone's walk update")
+        dispatch(walksSlice.actions.setWalkWithID(data))
+      })
     }
 
     socketInit()
     
     return () => {
-      console.log("Im unmounting")
+      socket?.disconnect()
     }
   }, [])
 

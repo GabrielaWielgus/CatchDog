@@ -1,11 +1,12 @@
-
-import { useState } from "react"
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useAppDispatch } from "../../../../redux/hooks"
 import { walksSlice } from "../../../../redux/features/walks"
 import { useAppSelector } from "../../../../redux/hooks"
 import * as Location from "expo-location"
+import { mapSocket } from "../../../../socket"
+import {Socket} from "socket.io-client"
+import { WalkUpdate } from "../../../../redux/features/walks"
 
 export type BehavioralDisorders = "none" | "noiseSensitivity" | "fear" | "aggression"
 export type OnLean = "yes" | "no"
@@ -39,7 +40,7 @@ export const useWalkForm = (props : props) => {
 
     const handleSubmit = async (data:FormValues) => {
         const location = await Location.getCurrentPositionAsync()
-        dispatch(walksSlice.actions.setWalkWithID({
+        const payload : WalkUpdate = {
             userID: user.userID as number,
             walk: {
                 latitude: location.coords.latitude,
@@ -49,8 +50,8 @@ export const useWalkForm = (props : props) => {
                 onLean: data.onLean,
                 userName: user.firstName
             }
-        }))
-        // TODO Send walkStart msg to server
+        }
+        dispatch(walksSlice.actions.setWalkWithID(payload))
         await props.startLocationTracking()
         props.closeForm()
     }

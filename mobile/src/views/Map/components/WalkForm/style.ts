@@ -65,10 +65,6 @@ export const style = StyleSheet.create({
         borderRadius: 50,
         marginVertical: 5,
         height: 60,
-        shadowColor: "black",
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-        shadowOffset: { width: 0, height: 1 }
     },
     buttonText: {
         color: Colors.text_primary,

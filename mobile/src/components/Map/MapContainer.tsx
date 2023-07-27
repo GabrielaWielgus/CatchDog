@@ -31,7 +31,7 @@ export default function MapContainer(props:props) {
             key={userID}
             coordinate={{ latitude: walks[userID].latitude, longitude: walks[userID].longitude }}
           >
-            <CustomMarker />
+            <CustomMarker name={walks[userID].userName}/>
             <Callout style={style.calloutContainer}>
               <Text style={style.calloutText}>
                 <Text style={style.boldText}>Walk Description: {walks[userID].walkDescription}</Text> 

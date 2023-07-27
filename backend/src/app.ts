@@ -47,8 +47,9 @@ export const createApp = async () : Promise<App> => {
 
     // Start http server
     const port = process.env.NODE_ENV === "test" ? process.env.SERVER_PORT : SERVER_PORT
-    const server = app.listen(port, () => {
-        console.log(`Listening on ${port}`);
+    const server = app.listen(port,() => {
+        const address = server.address();
+        console.log(address);
     });
 
     const socket = initSocket(server)

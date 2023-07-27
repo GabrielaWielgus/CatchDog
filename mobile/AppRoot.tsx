@@ -16,9 +16,10 @@ const AppRoot = () => {
   const [appReady, setAppReady] = useState(false)
   const [initialRoute, setInitialRoute] = useState<keyof StackParamList>("Signin")
   const dispatch = useAppDispatch()
-
+  
   useEffect(() => {
     const init = async () => {
+      //await AsyncStorage.clear()
       try{
         const token = await AsyncStorage.getItem("token")
         const email = await AsyncStorage.getItem("email")

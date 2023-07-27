@@ -42,9 +42,6 @@ export const style = StyleSheet.create({
     padding: 15,
     marginBottom: 10,
     marginHorizontal: '2%',
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 1 }
   },
   boldText: {
     fontWeight: 'bold',
