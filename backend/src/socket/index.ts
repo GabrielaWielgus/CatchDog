@@ -21,7 +21,6 @@ export const events = {
 export const initSocket = (httpServer:http.Server) => {
     socket = new io.Server(httpServer)
 
-    
     chatNamespace = socket.of("/chat")
     mapNamespace = socket.of("/map")
 
@@ -44,6 +43,8 @@ export const initSocket = (httpServer:http.Server) => {
             socket.broadcast.emit(events.map.userDisconnet, userID)
         })
     })
+
+    
 
     chatNamespace.on("connection", (socket:io.Socket) => {
         console.log("New connection to chat namespace")

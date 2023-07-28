@@ -10,7 +10,6 @@ export const errorHandler = (error:any, req:Request, res:Response, next:NextFunc
     }
 }
 
-
 export const errorResponder = (error:CustomError, req:Request, res:Response, next:NextFunction) => {
     console.log("errorResponder")
     const body = {

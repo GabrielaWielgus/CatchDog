@@ -15,24 +15,23 @@ import { Socket } from 'socket.io-client';
 import { walksSlice } from '../../redux/features/walks';
 import { useAppSelector } from '../../redux/hooks';
 import { useNavigation } from '@react-navigation/native';
-
+import { Alert } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '../../navigators/AppNavigator';
 
 const Map = () => {
   const [formVisible, setFormVisible] = useState(false);
   const { tracking, startLocationTracking, stopLocationTracking} = useLocationTracking();
   const user = useAppSelector(state => state.user)
   const dispatch = useAppDispatch()
-  const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<StackParamList>>()
 
   useEffect(() => {
-    let socket : Socket | undefined
+    console.log("Map component mounted")
+    let socket : Socket
     const socketInit = async () => {
-      await mapSocket.connect(user.userID as number)
-      socket = mapSocket.get() 
-      if(!socket){
-        throw new Error("Socket not available")
-      }
-
+      const socket = await mapSocket.connect(user.userID as number)
+      
       socket.on("userDisconnect", (userID:number) => {
         console.log("Someone disconnected")
         dispatch(walksSlice.actions.deleteWalkWithID(userID))
@@ -42,12 +41,22 @@ const Map = () => {
         console.log("Someone's walk update")
         dispatch(walksSlice.actions.setWalkWithID(data))
       })
-    }
 
+      socket.on("connect_error", () => {
+        Alert.alert(
+          "Connection error", "Could not connect to maps",
+          [
+            {text: "Retry", onPress: ()=>socketInit()},
+            {text: "Exit", onPress: ()=>navigation.navigate("Signin")}
+          ]
+        )
+      })
+    }
     socketInit()
     
     return () => {
-      socket?.disconnect()
+      console.log("Map component unmounting")
+      socket.disconnect()
     }
   }, [])
 
