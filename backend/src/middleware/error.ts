@@ -3,6 +3,7 @@ import {NextFunction, Response, Request} from "express"
 
 export const errorHandler = (error:any, req:Request, res:Response, next:NextFunction) => {
     console.log("errorHandler")
+    console.log(error)
     if(error instanceof CustomError){
         next(error)
     }else{

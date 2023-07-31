@@ -11,6 +11,8 @@ import { AppDataSource } from "./database"
 import { UserRepository } from "./database/repositories/user.repository"
 
 import authRouter from "./routes/auth"
+import walkRouter from "./routes/walk"
+
 import { errorHandler, errorResponder } from "./middleware/error"
 import { seed } from "./database/seeders"
 
@@ -32,13 +34,12 @@ export const createApp = async () : Promise<App> => {
         origin: ["http://localhost:5173", "http://localhost:8000"]
     }))
 
-
     // Request body parser
     app.use(express.json())
 
     // Endpoints
     app.use("/auth", authRouter)
-    // ... 
+    app.use("/walk", walkRouter)
     // ...
 
     // Global error handling

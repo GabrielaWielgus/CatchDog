@@ -34,11 +34,11 @@ export default function MapContainer(props:props) {
             <CustomMarker name={walks[userID].userName}/>
             <Callout style={style.calloutContainer}>
               <Text style={style.calloutText}>
-                <Text style={style.boldText}>Walk Description: {walks[userID].walkDescription}</Text> 
+                <Text style={style.boldText}>Walk Description: {walks[userID].description}</Text> 
                 {"\n\n"}
                 <Text style={style.boldText}>On Lean: {walks[userID].onLean}</Text> 
                 {"\n\n"}
-                <Text style={style.boldText}>Dog behavioral disorders: {walks[userID].behavioralDisorders}</Text>
+                <Text style={style.boldText}>Dog behavioral disorders: {walks[userID].behavioralDisorder}</Text>
               </Text>
             </Callout>
           </Marker>

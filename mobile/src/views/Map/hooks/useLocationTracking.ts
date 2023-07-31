@@ -12,7 +12,8 @@ import { walk } from '../../../redux/features/walks';
 import { useAppSelector } from '../../../redux/hooks';
 import { mapSocket } from '../../../socket';
 import { WalkUpdate } from '../../../redux/features/walks';
-
+import { DateTime } from 'luxon';
+import { walkAPI } from '../../../API/walkAPI';
 export const LOCATION_TRACKING = "location-tracking"
 
 TaskManager.defineTask(LOCATION_TRACKING, async (body:TaskManagerTaskBody) => {
@@ -58,6 +59,7 @@ const useLocationTracking = () => {
   const [tracking, setTracking] = useState<boolean>(false);
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.user)
+  const walks = useAppSelector(state => state.walks)
 
   useEffect(() => {
     const init = async () => {
@@ -97,6 +99,21 @@ const useLocationTracking = () => {
 
   const stopLocationTracking = async () => {
     try{
+      // Send walk to database
+      const walk = walks[user.userID as number]
+      
+      await walkAPI.post({
+        onLean: walk.onLean,
+        description: walk.description,
+        behavioralDisorder: walk.behavioralDisorder,
+        started: walk.started as string,
+        ended: DateTime.now().toISO() as string,
+      })
+    }catch(err){
+      console.log(err)
+    }
+    try{
+      // Terminate walk from map
       const socket = mapSocket.get()
       socket?.emit("userDisconnect", user.userID as number)
       await Location.stopLocationUpdatesAsync(LOCATION_TRACKING)

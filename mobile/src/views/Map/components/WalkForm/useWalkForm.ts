@@ -7,14 +7,15 @@ import * as Location from "expo-location"
 import { mapSocket } from "../../../../socket"
 import {Socket} from "socket.io-client"
 import { WalkUpdate } from "../../../../redux/features/walks"
+import {DateTime} from "luxon"
 
-export type BehavioralDisorders = "none" | "noiseSensitivity" | "fear" | "aggression"
+export type BehavioralDisorder = "none" | "noiseSensitivity" | "fear" | "aggression"
 export type OnLean = "yes" | "no"
 
 export interface FormValues {
     onLean: OnLean
-    behavioralDisorders: BehavioralDisorders
-    walkDescription: string
+    behavioralDisorder: BehavioralDisorder
+    description: string
 }
 
 interface props {
@@ -28,14 +29,14 @@ export const useWalkForm = (props : props) => {
     
     const initialValues : FormValues = {
         onLean: "yes",
-        behavioralDisorders: "none",
-        walkDescription: ""
+        behavioralDisorder: "none",
+        description: ""
     }
     
     const validationSchema = Yup.object({
         onLean: Yup.string().required(),
-        behavioralDisorders: Yup.string().nullable().required(),
-        walkDescription: Yup.string().required()
+        behavioralDisorder: Yup.string().nullable().required(),
+        description: Yup.string().required()
     })
 
     const handleSubmit = async (data:FormValues) => {
@@ -45,10 +46,11 @@ export const useWalkForm = (props : props) => {
             walk: {
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
-                walkDescription: data.walkDescription,
-                behavioralDisorders: data.behavioralDisorders,
+                description: data.description,
+                behavioralDisorder: data.behavioralDisorder,
                 onLean: data.onLean,
-                userName: user.firstName
+                userName: user.firstName,
+                started: DateTime.now().toISO()
             }
         }
         dispatch(walksSlice.actions.setWalkWithID(payload))

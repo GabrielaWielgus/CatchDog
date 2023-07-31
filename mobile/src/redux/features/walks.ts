@@ -7,6 +7,8 @@ export interface walk extends FormValues{
     longitude: number
     latitude: number
     userName: string
+    started: string | null 
+    ended: string | null 
 }
 
 export interface walks {

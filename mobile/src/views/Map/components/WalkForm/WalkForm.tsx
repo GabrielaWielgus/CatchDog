@@ -11,8 +11,8 @@ import { useWalkForm } from './useWalkForm';
 
 export interface FormValues {
   onLean: string;
-  behavioralDisorders: string;
-  walkDescription: string;
+  behavioralDisorder: string;
+  description: string;
 }
 
 interface props {
@@ -55,8 +55,8 @@ const WalkForm = (props:props) => {
                 <MyPicker
                   label="Select dog behavioral disorder"
                   icon="heart"
-                  selectedValue={formik.values.behavioralDisorders}
-                  onValueChange={formik.handleChange("behavioralDisorders")}
+                  selectedValue={formik.values.behavioralDisorder}
+                  onValueChange={formik.handleChange("behavioralDisorder")}
                 >
                   <Picker.Item label="None" value="none" color={Colors.beige} />
                   <Picker.Item label="Noise sensitivity" value="noiseSensitivity" color={Colors.beige} />
@@ -67,12 +67,12 @@ const WalkForm = (props:props) => {
                   label=""
                   icon={<Foundation name="clipboard-pencil" size={30} color={Colors.text_primary} />}
                   placeholder="Walk description"
-                  onChangeText={formik.handleChange('walkDescription')}
-                  onBlur={formik.handleBlur("walkDescription")}
+                  onChangeText={formik.handleChange('description')}
+                  onBlur={formik.handleBlur("description")}
                   password={false}
-                  value={formik.values.walkDescription}
-                  error={formik.touched.walkDescription && formik.errors.walkDescription?.length!==0}
-                  errorText={formik.errors.walkDescription}
+                  value={formik.values.description}
+                  error={formik.touched.description && formik.errors.description?.length!==0}
+                  errorText={formik.errors.description}
                 />
                 <TouchableOpacity style={style.styledButton} onPress={() => formik.handleSubmit()}>
                     <Text style={style.buttonText}>Add</Text>

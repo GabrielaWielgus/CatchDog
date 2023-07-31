@@ -1,7 +1,7 @@
 import * as io from "socket.io"
 import { isTokenValid } from "../../utils/auth"
 
-export const auth = async (socket: io.Socket, next: (err?: any) => void) => {
+export const auth = (socket: io.Socket, next: (err?: any) => void) => {
     const authHeader = socket.handshake.headers.authorization
     if(!authHeader){
         console.log("Auth header missing")

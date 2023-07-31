@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm"
+import { Walk } from "./Walk"
 
 @Entity()
 export class User {
@@ -13,5 +13,8 @@ export class User {
     password: string
     @Column("text", {unique: true})
     email: string
+
+    @OneToMany(() => Walk, walk => walk.user)
+    walks: Walk[]
 }
 

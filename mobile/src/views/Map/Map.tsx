@@ -43,6 +43,7 @@ const Map = () => {
       })
 
       socket.on("connect_error", () => {
+        socket.disconnect() // <-- stop reconnecting
         Alert.alert(
           "Connection error", "Could not connect to maps",
           [

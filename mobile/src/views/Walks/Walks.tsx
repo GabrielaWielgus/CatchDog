@@ -4,65 +4,36 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../config/Colors';
 import { style } from './style';
 import { StatusBar } from 'expo-status-bar';
+import { useWalks } from './useWalks';
+import type { Walk } from '@backend/database/entities/Walk';
 
-interface WalkData {
-  onLean: string;
-  walkDescription: string;
-  behavioralDisorder: string;
-}
 
 const Walks = () => {
-  const [walksData, setWalksData] = useState<WalkData[]>([
-    {
-        onLean: 'yes',
-        walkDescription: 'Walk description 1',
-        behavioralDisorder: 'none',
-    },
-    {
-        onLean: 'yes',
-        walkDescription: 'Walk description 2',
-        behavioralDisorder: 'none',
-    },
-    {
-        onLean: 'yes',
-        walkDescription: 'Walk description 3',
-        behavioralDisorder: 'none',
-    },
-    {
-        onLean: 'yes',
-        walkDescription: 'Walk description 4',
-        behavioralDisorder: 'none',
-    },
-    {
-        onLean: 'yes',
-        walkDescription: 'Walk description 5',
-        behavioralDisorder: 'none',
-    },
-  ]);
+  const {walks, handleDelete, deletingID} = useWalks()
 
-  const renderWalkItem = ({ item, index }: { item: WalkData; index: number }) => (
+  const renderWalkItem = ({ item, index }: { item: Walk; index: number }) => (
     <View style={style.walkBubble}>
       <Text style={style.walkText}>
         <Text style={style.boldText}>On Lean:</Text> {item.onLean}
       </Text>
       <Text style={style.walkText}>
-        <Text style={style.boldText}>Walk Description:</Text> {item.walkDescription}
+        <Text style={style.boldText}>Walk Description:</Text> {item.description}
       </Text>
       <Text style={style.walkText}>
         <Text style={style.boldText}>Behavioral Disorder:</Text> {item.behavioralDisorder}
       </Text>
-      <TouchableOpacity style={style.deleteButton} onPress={() => handleDeleteWalk(index)}>
+      {
+        deletingID !== item.id ? 
+      <TouchableOpacity style={style.deleteButton} onPress={() => {handleDelete(item.id)}}>
         <View style={style.rightIcon}>
-          <Ionicons name="trash" size={20} color={Colors.beige} />
+          <Ionicons name="trash" size={35} color={Colors.beige} />
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> : null
+      }
     </View>
   );
 
-  const handleDeleteWalk = (index: number) => {
-    const updatedWalksData = walksData.filter((_, i) => i !== index);
-    setWalksData(updatedWalksData);
-  };
+ 
 
   return (
     <>
@@ -80,7 +51,7 @@ const Walks = () => {
         </View>
 
         <FlatList
-          data={walksData}
+          data={walks}
           renderItem={renderWalkItem}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={{ marginTop: 10, paddingBottom: 20 }}

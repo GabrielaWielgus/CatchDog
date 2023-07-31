@@ -13,7 +13,8 @@ export interface SigninRequest {
 }
 
 export interface SigninResponse {
-    token: string
+    accessToken: string
+    refreshToken: string
     email: string
     firstName: string
     lastName: string
@@ -42,11 +43,16 @@ export const signin = async (req:Request, res:Response, next:NextFunction) => {
             userID: user.id,
             email: user.email
         }
-        const token = jwt.sign(payload, SECRET_KEY, {
-            expiresIn: "12h"
+        const accessToken = jwt.sign(payload, SECRET_KEY, {
+            expiresIn: "12h" // <-- short lived
         })
+        const refreshToken = jwt.sign(payload, SECRET_KEY, {
+            expiresIn: "30d" // <-- long lived
+        })
+
         const resData : SigninResponse = {
-            token: token,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
