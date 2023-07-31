@@ -2,8 +2,6 @@ import { CustomError } from "../utils/CustomError"
 import {NextFunction, Response, Request} from "express"
 
 export const errorHandler = (error:any, req:Request, res:Response, next:NextFunction) => {
-    console.log("errorHandler")
-    console.log(error)
     if(error instanceof CustomError){
         next(error)
     }else{
@@ -12,7 +10,6 @@ export const errorHandler = (error:any, req:Request, res:Response, next:NextFunc
 }
 
 export const errorResponder = (error:CustomError, req:Request, res:Response, next:NextFunction) => {
-    console.log("errorResponder")
     const body = {
         message: error.message,
         errors: error.errors

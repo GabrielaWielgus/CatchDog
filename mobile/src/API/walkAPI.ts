@@ -6,54 +6,33 @@ import {PostWalkRequest} from "@backend/controllers/walk/postWalk"
 import { PostWalkResponse } from "@backend/controllers/walk/postWalk"
 import {DeleteWalkResponse} from "@backend/controllers/walk/deleteWalk"
 
+import { makeProtectedRequest } from "."
+
 export const walkAPI = {
     get: async () : Promise<GetWalkResponse> => {
         try{
-            const token = await AsyncStorage.getItem("token")
-            const response = await axios.get(endpoints.walk.get, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            const response = await makeProtectedRequest("GET", endpoints.walk.get)
             return response.data as GetWalkResponse
         }catch(err){
-            throw new Error("Error fetching walks", {
-                cause: err
-            })
+            throw err
         }
     },
     post: async (data:PostWalkRequest) => {
         try{
-            const token = await AsyncStorage.getItem("token")
-            const response = await axios.post(endpoints.walk.post, data, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            const response = await makeProtectedRequest("POST", endpoints.walk.post, data)
             return response.data as PostWalkResponse
         }catch(err){
-            throw new Error("Error posting walk", {
-                cause: err
-            })
+            throw err
         }
     },
     delete: async (walkID:number) => {
         try{
-            const token = await AsyncStorage.getItem("token")
-            const response = await axios.delete(endpoints.walk.delete, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                params: {
-                    walkID: walkID
-                }
+            const response = await makeProtectedRequest("DELETE", endpoints.walk.delete, null, {
+                walkID: walkID
             })
             return response.data as DeleteWalkResponse
         }catch(err){
-            console.log(err)
-            throw new Error("Error deleting walk", {
-                cause: err
-            })
+            throw err
         }
     }
 }

@@ -14,7 +14,7 @@ export const auth = (socket: io.Socket, next: (err?: any) => void) => {
     }
     const isValid = isTokenValid(token)
     if(isValid === false){
-        console.log("token invalid")
+        console.log("token invalid (socket auth)")
         return next(new Error("Authorization token expired or malformed."))
     }
     next()

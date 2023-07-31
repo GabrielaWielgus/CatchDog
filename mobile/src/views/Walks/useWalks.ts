@@ -4,11 +4,13 @@ import type { Walk } from "@backend/database/entities/Walk"
 import { useEffect } from "react"
 import { useAppDispatch } from "../../redux/hooks"
 import { walkAPI } from "../../API/walkAPI"
+import {AxiosError} from "axios"
+import { useNavigation } from "@react-navigation/native"
 
 export const useWalks = () => {
     const [walks, setWalks] = useState<Walk[]>([])
     const [deletingID, setDeletingID] = useState<number|null>(null)
-
+    
     useEffect(() => {
         fetchWalks()
     }, [])
@@ -19,7 +21,12 @@ export const useWalks = () => {
             const data = await walkAPI.get()
             setWalks(data.walks)
         }catch(err){
-            // handle error
+            if(err instanceof AxiosError){
+                if(err.response?.status === 401){
+                    // TODO navigate to signin
+                    console.log("Unauthorized navigate to signin")
+                }
+            }
         }
     }
 

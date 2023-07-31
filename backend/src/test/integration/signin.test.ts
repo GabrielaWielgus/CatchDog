@@ -26,8 +26,9 @@ describe("POST /auth/signin", () => {
         }
         const response = await request(global.app).post("/auth/signin").send(data)
         expect(response.statusCode).toBe(200)
-        expect(response.body.token).toBeDefined()
-        expect(typeof response.body.token).toBe("string")
+        expect(response.body.accessToken).toBeDefined()
+        expect(response.body.refreshToken).toBeDefined()
+        expect(typeof response.body.accessToken).toBe("string")
     })
 
     it("should not signin - wrong email", async () => {

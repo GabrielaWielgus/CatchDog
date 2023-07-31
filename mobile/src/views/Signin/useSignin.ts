@@ -8,10 +8,14 @@ import axios from "axios"
 import { endpoints } from "../../config/api"
 import { NavigationParams } from "../../navigators"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { authAPI } from "../../API/authAPI"
+import { useAppDispatch } from "../../redux/hooks"
+import { userSlice } from "../../redux/features/user"
 
 export const useSignin = () => {
     const [error, setError] = useState("")
     const navigation = useNavigation<NavigationParams>()
+    const dispatch = useAppDispatch()
 
     const initialValues : SigninRequest = {
         email: "",
@@ -25,29 +29,17 @@ export const useSignin = () => {
 
     const handleSubmit = async (data:SigninRequest) => {
         try{
-            const response = await axios.post(endpoints.auth.signin, data)
-            if(response.status === 200){
-                const data = response.data as SigninResponse
-                if("token" in data && "userID" in data){
-                    await AsyncStorage.setItem("token", data.token)
-                    await AsyncStorage.setItem("email", data.email)
-                    await AsyncStorage.setItem("userID", JSON.stringify(data.userID))
-                    await AsyncStorage.setItem("firstName", data.firstName)
-                    await AsyncStorage.setItem("lastName", data.lastName)
-                    
-                    navigation.navigate("Welcome")
-                }else{
-                    throw new Error("Missing values")
-                }
-            }
+            const resData = await authAPI.signin(data)
+            dispatch(userSlice.actions.set({
+                firstName: resData?.firstName,
+                lastName: resData?.lastName,
+                email: resData?.email,
+                userID: resData?.userID
+            }))
+            navigation.replace("Welcome")
         }catch(err){
-            console.log(err)
             if(err instanceof axios.AxiosError){
-                if(err.response?.data.errors){
-                    setError(err.response?.data.errors[0].msg)
-                }
-            }else{
-               // TODO handle other errors 
+                // TODO get the error data  (validation errors etc.)
             }
         }
     }

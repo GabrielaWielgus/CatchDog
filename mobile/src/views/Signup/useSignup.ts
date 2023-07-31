@@ -5,6 +5,7 @@ import * as Yup from "yup"
 import { useState } from "react"
 import axios from "axios"
 import { endpoints } from "../../config/api"
+import { authAPI } from "../../API/authAPI"
 
 
 export const useSignup = () => {
@@ -28,18 +29,15 @@ export const useSignup = () => {
 
     const handleSubmit = async (data:SignupRequest) => {
         try{
-            const response = await axios.post(endpoints.auth.signin, data)
-            if(response.status === 200){
-                //const data = response.data as SignupResponse
-            }
+            await authAPI.signup(data)
         }catch(err){
             if(err instanceof axios.AxiosError){
-                //setError(err.response?.data.message)
-                console.log(err.response?.data)
                 if(err.response?.data.errors){
                     console.log(err.response.data.errors)
                     setError(err.response?.data.errors[0].msg)
                 }
+            }else{
+                // TODO handle non axios errors
             }
         }
     }

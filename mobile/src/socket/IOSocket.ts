@@ -14,14 +14,14 @@ export class IOSocket {
     }
 
     public connect = async (userID: number) : Promise<Socket> => {
-        const token = await AsyncStorage.getItem("token")
-        if(!token){
-            throw new Error("Token not found")
+        const accessToken = await AsyncStorage.getItem("accessToken")
+        if(!accessToken){
+            throw new Error("Access token not found")
         }
         try {
             this.socket = io(`${SERVER_BASE}/${this.namespace}`, {
                 query: {userID: userID},
-                extraHeaders: {Authorization: `Bearer ${await AsyncStorage.getItem("token") as string}`}
+                extraHeaders: {Authorization: `Bearer ${await AsyncStorage.getItem("accessToken") as string}`}
             });
             this.socket.on("connect", () => console.log("Connected"))
            

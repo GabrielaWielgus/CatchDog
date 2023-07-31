@@ -18,6 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '../../navigators/AppNavigator';
+import { refreshAccessToken } from '../../API';
 
 const Map = () => {
   const [formVisible, setFormVisible] = useState(false);
@@ -30,7 +31,7 @@ const Map = () => {
     console.log("Map component mounted")
     let socket : Socket
     const socketInit = async () => {
-      const socket = await mapSocket.connect(user.userID as number)
+      socket = await mapSocket.connect(user.userID as number)
       
       socket.on("userDisconnect", (userID:number) => {
         console.log("Someone disconnected")
@@ -42,12 +43,16 @@ const Map = () => {
         dispatch(walksSlice.actions.setWalkWithID(data))
       })
 
-      socket.on("connect_error", () => {
+      socket.on("connect_error", async (err) => {
         socket.disconnect() // <-- stop reconnecting
+
         Alert.alert(
           "Connection error", "Could not connect to maps",
           [
-            {text: "Retry", onPress: ()=>socketInit()},
+            {text: "Retry", onPress: async ()=>{
+              await refreshAccessToken()
+              await socketInit()
+            }},
             {text: "Exit", onPress: ()=>navigation.navigate("Signin")}
           ]
         )

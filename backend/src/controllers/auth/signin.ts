@@ -5,7 +5,8 @@ import * as HttpStatus from "http-status"
 import * as bcrypt from "bcrypt"
 import * as jwt from "jsonwebtoken"
 import { SECRET_KEY } from "../../config/secret";
-
+import { ACCESS_TOKEN_EXPIRATION } from "../../config";
+import { REFRESH_TOKEN_EXPIRATION } from "../../config";
 
 export interface SigninRequest {
     email: string
@@ -44,10 +45,10 @@ export const signin = async (req:Request, res:Response, next:NextFunction) => {
             email: user.email
         }
         const accessToken = jwt.sign(payload, SECRET_KEY, {
-            expiresIn: "12h" // <-- short lived
+            expiresIn: ACCESS_TOKEN_EXPIRATION // <-- short lived
         })
         const refreshToken = jwt.sign(payload, SECRET_KEY, {
-            expiresIn: "30d" // <-- long lived
+            expiresIn: REFRESH_TOKEN_EXPIRATION // <-- long lived
         })
 
         const resData : SigninResponse = {

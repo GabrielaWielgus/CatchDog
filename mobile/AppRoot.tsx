@@ -21,13 +21,13 @@ const AppRoot = () => {
     const init = async () => {
       //await AsyncStorage.clear()
       try{
-        const token = await AsyncStorage.getItem("token")
+        const accessToken = await AsyncStorage.getItem("accessToken")
         const email = await AsyncStorage.getItem("email")
         const firstName = await AsyncStorage.getItem("firstName")
         const lastName = await AsyncStorage.getItem("lastName")
         const userID = await AsyncStorage.getItem("userID")
 
-        if(!token || !email || !userID || !firstName || !lastName){
+        if(!accessToken || !email || !userID || !firstName || !lastName){
           setInitialRoute("Signin")
         }else{
           dispatch(userSlice.actions.set({
