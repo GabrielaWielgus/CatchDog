@@ -4,7 +4,6 @@ const win = Dimensions.get("window")
 
 export const style = StyleSheet.create({
   walksViewStyle: {
-    flex: 1,
     backgroundColor: Colors.beige,
     paddingBottom: '17%',
   },
@@ -12,11 +11,11 @@ export const style = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: Colors.beige,
+    color: Colors.logo_me,
     paddingTop: '2%',
   },
   blurredView: {
-    backgroundColor: Colors.background_tab_bar,
+    backgroundColor: Colors.beige,
     borderRadius: 20,
     padding: 15,
     width: '50%',
@@ -37,11 +36,15 @@ export const style = StyleSheet.create({
     color: Colors.text_primary,
   },
   walkBubble: {
-    backgroundColor: Colors.background_tab_bar,
+    backgroundColor: Colors.background,
     borderRadius: 15,
     padding: 15,
     marginBottom: 10,
     marginHorizontal: '2%',
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   boldText: {
     fontWeight: 'bold',
@@ -49,7 +52,7 @@ export const style = StyleSheet.create({
     color: Colors.beige,
   },
   walkText: {
-    color: Colors.background,
+    color: Colors.beige,
     fontSize: 16,
     marginBottom: 10,
     marginRight:70,

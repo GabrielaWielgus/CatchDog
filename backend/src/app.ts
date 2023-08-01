@@ -12,6 +12,7 @@ import { UserRepository } from "./database/repositories/user.repository"
 
 import authRouter from "./routes/auth"
 import walkRouter from "./routes/walk"
+import chatRouter from "./routes/chat"
 
 import { errorHandler, errorResponder } from "./middleware/error"
 import { seed } from "./database/seeders"
@@ -40,7 +41,7 @@ export const createApp = async () : Promise<App> => {
     // Endpoints
     app.use("/auth", authRouter)
     app.use("/walk", walkRouter)
-    // ...
+    app.use("/chat", chatRouter)
 
     // Global error handling
     app.use(errorHandler)

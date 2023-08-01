@@ -252,7 +252,7 @@ const HealthRecord: React.FC = () => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={style.healthRecordGoBack} onPress={handleGoBack}>
-          <Ionicons name="arrow-back" size={30} color={Colors.dark_blue} />
+          <Ionicons name="arrow-back" size={30} />
         </TouchableOpacity>
       </View>
     );
