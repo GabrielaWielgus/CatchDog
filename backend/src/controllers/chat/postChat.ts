@@ -42,8 +42,8 @@ export const postChat = async (req:Request, res:Response, next:NextFunction) => 
         // Create chat
         const {chat, chatter1, chatter2} = await ChatRepository.createChatWithChatters(user1, user2)
 
-        // TODO
-        // Socket update
+        // TOOD socket update
+
         const resData : PostChatResponse = {
             message: "Chat created"
         }

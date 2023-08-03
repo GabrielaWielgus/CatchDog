@@ -12,6 +12,7 @@ import { ChatRepository } from "../../../database/repositories/chat.repository"
 
 import { seedUser } from "../../../database/seeders/user.seeder"
 import { seedChat } from "../../../database/seeders/chat.seeder"
+import { seedMessages } from "../../../database/seeders/message.seeder"
 
 describe("POST /chat", () => {
     beforeAll(async () => {
@@ -19,6 +20,7 @@ describe("POST /chat", () => {
         
         await seedUser()
         await seedChat()
+        await seedMessages()
     })
 
     it("should return authentication error if no token was attached", async () => {
@@ -34,6 +36,8 @@ describe("POST /chat", () => {
     
         expect(response.status).toBe(200)
         const data = response.body as GetChatResponse
+        console.log(data.chats[0].chatters)
+        console.log(data.chats[0].messages)
         expect(data.chats.length).toBeGreaterThan(0)
     })
 })

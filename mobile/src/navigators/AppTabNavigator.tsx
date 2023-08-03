@@ -3,21 +3,20 @@ import { Colors } from "../config/Colors"
 import { Ionicons } from "@expo/vector-icons"
 import Map from "../views/Map/Map"
 import Walks from "../views/Walks/Walks"
-import Chat from "../views/Chat/Chat"
 import HealthRecord from "../views/HealthRecord/HealtRecord"
 import Settings from "../views/Settings/Settings"
+import { ChatStackNavigator } from "./ChatStackNavigator"
 
-
-export type TabsParamList = {
+export type AppTabParamList = {
   Map: undefined;
   Walks: undefined;
-  Chat: undefined;
+  ChatStackNavigator: undefined;
   HealthRecord: undefined;
   Settings: undefined;
 };
 
-const MapNavigator = () => {
-    const Tab = createBottomTabNavigator()
+export const AppTabNavigator = () => {
+    const Tab = createBottomTabNavigator<AppTabParamList>()
 
     return (
         <Tab.Navigator
@@ -39,7 +38,7 @@ const MapNavigator = () => {
                     return focused ? <Ionicons name={"map"} size={size} color={color} /> : <Ionicons name={"map-outline"} size={size} color={color} />;
                 } else if (route.name === 'Walks') {
                     return focused ? <Ionicons name={"walk"} size={size} color={color} /> : <Ionicons name={"walk-outline"} size={size} color={color} />;
-                } else if (route.name === 'Chat') {
+                } else if (route.name === 'ChatStackNavigator') {
                     return focused ? <Ionicons name={"chatbubble"} size={size} color={color} /> : <Ionicons name={"chatbubble-outline"} size={size} color={color} />;
                 } else if (route.name === 'HealthRecord') {
                     return focused ? <Ionicons name={"book"} size={size} color={color} /> : <Ionicons name={"book-outline"} size={size} color={color} />;
@@ -64,8 +63,8 @@ const MapNavigator = () => {
           options={{ tabBarLabel: () => null }}
         />
         <Tab.Screen
-          name="Chat"
-          component={Chat}
+          name="ChatStackNavigator"
+          component={ChatStackNavigator}
           options={{ tabBarLabel: () => null }}
         />
         <Tab.Screen
@@ -81,5 +80,3 @@ const MapNavigator = () => {
       </Tab.Navigator>
     )
 }
-
-export default MapNavigator

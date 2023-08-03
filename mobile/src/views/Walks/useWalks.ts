@@ -6,14 +6,25 @@ import { useAppDispatch } from "../../redux/hooks"
 import { walkAPI } from "../../API/walkAPI"
 import {AxiosError} from "axios"
 import { useNavigation } from "@react-navigation/native"
+import { useFocusEffect } from "@react-navigation/native"
+import { useCallback } from "react"
+import { useIsFocused } from "@react-navigation/native"
 
 export const useWalks = () => {
     const [walks, setWalks] = useState<Walk[]>([])
     const [deletingID, setDeletingID] = useState<number|null>(null)
+    const isFocused = useIsFocused()
     
     useEffect(() => {
-        fetchWalks()
-    }, [])
+        if(isFocused == true){
+            console.log("focus in")
+            fetchWalks()
+        }
+        else if(isFocused === false){
+            console.log("focus out")
+        }
+    }, [isFocused])
+    
 
     const fetchWalks = async () => {
         console.log("Fetching")

@@ -2,7 +2,6 @@ import {MessageRepository} from "../repositories/message.repository"
 import {ChatRepository} from '../repositories/chat.repository'
 import { Chat } from "../entities/chat/Chat"
 import { User } from "../entities/User"
-
 import { faker } from "@faker-js/faker"
 
 
@@ -13,7 +12,8 @@ export const seedMessages = async () => {
         const msg = MessageRepository.create({
             data: faker.lorem.sentence(),
             chat: chat,
-            sender: sender
+            sender: sender,
+            created: faker.date.past().toISOString()
         })
         await MessageRepository.save(msg)
     }

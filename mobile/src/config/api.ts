@@ -10,5 +10,13 @@ export const endpoints = {
         get: `${SERVER_BASE}/walk`,
         post: `${SERVER_BASE}/walk`,
         delete: `${SERVER_BASE}/walk`
+    },
+    chat: {
+        get: `${SERVER_BASE}/chat/`,
+        post: `${SERVER_BASE}/chat`
+    },
+    message: {
+        get: `${SERVER_BASE}/chat/message`,
+        post: `${SERVER_BASE}/chat/message`
     }
 }

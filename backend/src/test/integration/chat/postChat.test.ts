@@ -42,15 +42,15 @@ describe("POST /chat", () => {
 
     it("should create chat between users with id 1 and 3", async () => {
         const data : PostChatRequest = {
-            otherID: 3
+            otherID: 1
         }
-        const token = jwt.sign({userID: 1}, SECRET_KEY)
+        const token = jwt.sign({userID: 3}, SECRET_KEY)
         const response = await request(global.app).post("/chat").set("Authorization", `Bearer ${token}`).send(data)
 
         expect(response.statusCode).toBe(201)
     })
 
-    it("should create chat between users with id 1 and 3", async () => {
+    it("should create chat between users with id 1 and 4", async () => {
         const data : PostChatRequest = {
             otherID: 1
         }

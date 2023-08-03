@@ -2,23 +2,23 @@ import { createStackNavigator } from "@react-navigation/stack"
 import Map from "../views/Map/Map"
 import Signin from "../views/Signin/Signin"
 import Signup from "../views/Signup/Signup"
-import MapNavigator from "./MapNavigator"
+import { AppTabNavigator } from "./AppTabNavigator"
 import Welcome from "../views/Welcome/Welcome"
 import { Colors } from "../config/Colors"
 
-export type StackParamList = {
-    MapNavigator: undefined;
+export type RootStackParamList = {
+    AppTabNavigator: undefined;
     Signin: undefined;
     Signup: undefined;
     Welcome: undefined;
 };
 
 type props = {
-    initialRoute: keyof StackParamList
+    initialRoute: keyof RootStackParamList
 }
 
-export const AppNavigator = (props:props) => {
-    const Stack = createStackNavigator<StackParamList>()
+export const RootStackNavigator = (props:props) => {
+    const Stack = createStackNavigator<RootStackParamList>()
 
     return(
         <Stack.Navigator
@@ -37,8 +37,8 @@ export const AppNavigator = (props:props) => {
             }}
         >
             <Stack.Screen 
-                name='MapNavigator'
-                component={MapNavigator}
+                name='AppTabNavigator'
+                component={AppTabNavigator}
             />
             <Stack.Screen 
                 name="Signin"

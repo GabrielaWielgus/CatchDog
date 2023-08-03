@@ -11,14 +11,14 @@ export class Message{
     data: string
 
     @CreateDateColumn()
-    created: Date
+    created: string
 
     // Many messages belong to one user
     @ManyToOne(() => User, user => user.messages)
     sender: User
 
     // Many messages can belong to the same chat
-    @ManyToOne(() => Chat, chat => chat.messages)
+    @ManyToOne(() => Chat, chat => chat.messages, {eager: true})
     chat: Chat    
 }
 
