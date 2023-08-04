@@ -3,10 +3,13 @@ import { useEffect } from "react"
 import { chatAPI } from "../../../API/chatAPI"
 import { useState } from "react"
 import { Chat } from "@backend/database/entities/chat/Chat"
+import { useAppSelector } from "../../../redux/hooks"
+import { useAppDispatch } from "../../../redux/hooks"
+import { chatsSlice } from "../../../redux/features/chats"
 
 export const useChatList = () => {
-    const [chats, setChats] = useState<Chat[]>()
     const isFocused = useIsFocused()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         if(isFocused){
@@ -16,8 +19,13 @@ export const useChatList = () => {
 
     const fetchChatList = async () => {
         try{
-            const data = await chatAPI.get()
-            setChats(data.chats)
+            const data = await chatAPI.list.get()
+            for(const chat of data.chats)[
+                dispatch(chatsSlice.actions.setChatWithID({
+                    chatID: chat.id,
+                    chat: chat
+                }))
+            ]
             console.log(data.chats.length)
         }catch(err){
             // TODO handle errors
@@ -26,6 +34,6 @@ export const useChatList = () => {
 
 
     return {
-        chats
+        
     }
 }

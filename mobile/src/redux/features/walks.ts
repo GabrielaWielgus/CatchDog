@@ -26,7 +26,7 @@ export const walksSlice = createSlice({
     name: "walks",
     initialState,
     reducers: {
-        set: (state, action: PayloadAction<walks>) => {
+        set: (state, action: PayloadAction<walks>) => { 
             return action.payload
         },
         setWalkWithID: (state, action: PayloadAction<WalkUpdate>) => {

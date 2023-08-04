@@ -18,7 +18,8 @@ interface ChatData {
 
 const ChatList = () => {
     const {userID} = useAppSelector(state => state.user)
-    const {chats} = useChatList()
+    const {} = useChatList()
+    const chats = useAppSelector(state => state.chats)
 
     const renderItem = ({item}: {item:Chat}) => {
         console.log(item.messages[0].created)
@@ -36,7 +37,7 @@ const ChatList = () => {
         <SafeAreaView style={{flex: 1}}>
             <View style={style.containerChats}>
             <FlatList
-                data={chats}
+                data={Object.values(chats)}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />

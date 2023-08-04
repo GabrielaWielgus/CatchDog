@@ -43,7 +43,7 @@ export const getChat = async (req:Request, res:Response, next:NextFunction) => {
             .getMany();   
 
         for(const chat of chats){
-            chat.messages = chat.messages.slice(0,3)
+            chat.messages = chat.messages.slice(0,20)
         }
 
         const resData : GetChatResponse = {

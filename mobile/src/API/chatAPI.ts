@@ -7,27 +7,46 @@ import * as SecureStore from "expo-secure-store"
 import { SignupRequest } from "@backend/controllers/auth/signup"
 import { makeProtectedRequest } from "."
 import {GetChatResponse} from "@backend/controllers/chat/getChat"
+import {GetMessageResponse, GetMessageRequest} from "@backend/controllers/chat/message/getMessage"
 
 export const chatAPI = {
-    get: async () : Promise<GetChatResponse> => {
-        try{
-            const response = await makeProtectedRequest("GET", endpoints.chat.get)
-            if(response.status === 200){
-                return response.data
-            }else{
-                throw new Error("Error fetching chats")
+    list: {
+        get: async () : Promise<GetChatResponse> => {
+            try{
+                const response = await makeProtectedRequest("GET", endpoints.chat.get)
+                if(response.status === 200){
+                    return response.data
+                }else{
+                    throw new Error("Error fetching chats")
+                }
+            }catch(err){
+                throw err
             }
-        }catch(err){
-            throw err
+        },
+        post: async () => {
+    
+        },
+    },
+    message: {
+        get: async (page:number, chatID:number, limit:number) : Promise<GetMessageResponse> => {
+            try{
+                const params : GetMessageRequest = {
+                    chatID: chatID,
+                    page: page,
+                    limit: limit
+                }
+                const response = await makeProtectedRequest("GET", endpoints.message.get, null, params)
+                if(response.status === 200){
+                    return response.data
+                }else{
+                    throw new Error("Error fetching messages")
+                }
+            }catch(err){
+                throw err
+            }
+        },
+        post: async () => {
+    
         }
-    },
-    post: async () => {
-
-    },
-    getMessage: async () => {
-
-    },
-    postMessage: async () => {
-
     }
 }

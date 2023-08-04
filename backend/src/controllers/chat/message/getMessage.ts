@@ -45,7 +45,7 @@ export const getMessage = async (req:Request, res:Response, next:NextFunction) =
         if(chat.chatters.some(chatter => chatter.user.id === userID) === false){
             throw new CustomError("User does not have access to the chat", HttpStatus.FORBIDDEN)
         }
-        
+    
         const skip = (page - 1) * limit;
         const [messages, totalCount] = await MessageRepository.findAndCount({
             where: { chat: {id: data.chatID}},
@@ -53,6 +53,8 @@ export const getMessage = async (req:Request, res:Response, next:NextFunction) =
             skip,
             take: limit,
         });
+
+        const m = await MessageRepository.find
         
         const totalPages = Math.ceil(totalCount / limit);
         const resData : GetMessageResponse = {
