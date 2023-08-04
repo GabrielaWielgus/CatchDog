@@ -7,7 +7,8 @@ import { props } from "./components/ChatBadge";
 import { useChatList } from "./useChatList";
 import { Chat } from "@backend/database/entities/chat/Chat";
 import { useAppSelector } from "../../../redux/hooks";
-import { DateTime } from "luxon";
+import { useState } from "react";
+import MessageForm from "./components/MessageForm/MessageForm";
 
 interface ChatData {
     id: number;
@@ -20,6 +21,7 @@ const ChatList = () => {
     const {userID} = useAppSelector(state => state.user)
     const {} = useChatList()
     const chats = useAppSelector(state => state.chats)
+    const [formVisible, setFormVisible] = useState(false);
 
     const renderItem = ({item}: {item:Chat}) => {
         console.log(item.messages[0].created)
@@ -42,11 +44,16 @@ const ChatList = () => {
                 keyExtractor={(item, index) => index.toString()}
             />
             </View>
-            <TouchableOpacity style={style.Button} onPress={() => {}}>
+            <TouchableOpacity style={style.Button} onPress={() => setFormVisible(true)}>
             <View style={[style.addButton]}>
-                <Ionicons name="add" size={24} color={Colors.background} />
+                <Ionicons name="search" size={24} color={Colors.beige} />
             </View>
         </TouchableOpacity>
+
+        {formVisible && (
+            <MessageForm
+            close={() => setFormVisible(false)}/>
+        )}
         </SafeAreaView>
     )
 }
