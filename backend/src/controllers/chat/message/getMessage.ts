@@ -11,24 +11,20 @@ import { Message } from "../../../database/entities/chat/Message";
 
 export interface GetMessageRequest {
     chatID: number
-    page: number
+    skip: number
     limit: number
 }
 
 export interface GetMessageResponse {
     messages: Message[]
-    currentPage: number
-    totalPages: number
     totalCount: number
 }
 
 export const getMessage = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {userID} = getDataFromToken(req.headers.authorization.split(" ")[1]) 
-        const data = req.params as unknown as GetMessageRequest;
-        const page = data.page || 1; 
+        const data = req.query as unknown as GetMessageRequest;
         const limit = data.limit || 10; 
-
         const chat = await ChatRepository.findOne({
             where: {
                 id: data.chatID
@@ -45,22 +41,19 @@ export const getMessage = async (req:Request, res:Response, next:NextFunction) =
         if(chat.chatters.some(chatter => chatter.user.id === userID) === false){
             throw new CustomError("User does not have access to the chat", HttpStatus.FORBIDDEN)
         }
-    
-        const skip = (page - 1) * limit;
-        const [messages, totalCount] = await MessageRepository.findAndCount({
-            where: { chat: {id: data.chatID}},
-            order: { created: "DESC" }, // order by createdAt in descending order
-            skip,
-            take: limit,
-        });
-
-        const m = await MessageRepository.find
         
-        const totalPages = Math.ceil(totalCount / limit);
+        const [messages, totalCount] = await MessageRepository.createQueryBuilder("message")
+            .leftJoin('message.sender', 'sender')          // <-- join message sender data
+            .addSelect(['sender.firstName', 'sender.lastName', 'sender.id', 'sender.email']) // <-- select revelant columns
+            .leftJoinAndSelect("message.chat", "chat")
+            .where("message.chat.id = :chatID", { chatID: data.chatID })
+            .orderBy("message.created", "DESC")
+            .skip(data.skip)
+            .take(limit)
+            .getManyAndCount()
+
         const resData : GetMessageResponse = {
             messages,
-            currentPage: page,
-            totalPages,
             totalCount
         }
         res.status(HttpStatus.OK).json(resData)

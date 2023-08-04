@@ -4,8 +4,8 @@ import { RootState } from "../store";
 import {Chat} from "@backend/database/entities/chat/Chat"
 import { Message } from "@backend/database/entities/chat/Message";
 
-interface Chats {
-    [key: number]: Chat // TODO Omit<Chat, "messages"> & {messages: {[key:number]: Message}}
+export interface Chats {
+    [key: number]: Chat 
 }
 
 const initialState: Chats = {}
@@ -24,6 +24,9 @@ export const chatsSlice = createSlice({
     name: "chats",
     initialState,
     reducers: {
+        set: (state, action: PayloadAction<Chats>) => { 
+            return {...state, ...action.payload}
+        },
         setChatWithID: (state, action: PayloadAction<ChatUpdate>) => {
             const { chatID, chat } = action.payload;
             state[chatID] = { ...state[chatID], ...chat };
@@ -37,5 +40,5 @@ export const chatsSlice = createSlice({
     }
 })
 
-export const {setChatWithID, setChatMessages} = chatsSlice.actions
+export const {setChatWithID, setChatMessages, set} = chatsSlice.actions
 export default chatsSlice.reducer

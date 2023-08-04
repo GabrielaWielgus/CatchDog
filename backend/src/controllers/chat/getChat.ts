@@ -20,7 +20,6 @@ export const getChat = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {userID} = getDataFromToken(req.headers.authorization.split(" ")[1])
 
-        // chyba dziala :) <3
         const chats = await ChatRepository
             .createQueryBuilder('chat')
             .leftJoinAndSelect('chat.chatters', 'chatter') // <-- joinSelect chatters
@@ -43,7 +42,7 @@ export const getChat = async (req:Request, res:Response, next:NextFunction) => {
             .getMany();   
 
         for(const chat of chats){
-            chat.messages = chat.messages.slice(0,20)
+            chat.messages = chat.messages.slice(0,5)
         }
 
         const resData : GetChatResponse = {

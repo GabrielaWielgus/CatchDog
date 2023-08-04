@@ -28,14 +28,13 @@ export const chatAPI = {
         },
     },
     message: {
-        get: async (page:number, chatID:number, limit:number) : Promise<GetMessageResponse> => {
+        get: async (skip:number, chatID:number, limit:number) : Promise<GetMessageResponse> => {
             try{
-                const params : GetMessageRequest = {
+                const response = await makeProtectedRequest("GET", endpoints.message.get, null, {
                     chatID: chatID,
-                    page: page,
+                    skip: skip,
                     limit: limit
-                }
-                const response = await makeProtectedRequest("GET", endpoints.message.get, null, params)
+                })
                 if(response.status === 200){
                     return response.data
                 }else{

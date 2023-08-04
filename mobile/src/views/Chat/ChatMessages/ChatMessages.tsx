@@ -7,13 +7,14 @@ import { style } from "./style"
 import { Ionicons } from "@expo/vector-icons"
 import { useAppSelector } from "../../../redux/hooks"
 import { Colors } from "../../../config/Colors"
+import { useChatStackNavigation } from "../../../navigators"
 
 const ChatMessages = () => {
     const route = useChatStackRoute()
-    const {} = useChatMessages()
+    const {fetchMessages} = useChatMessages(route.params?.chatID as number)
     const chats = useAppSelector(state => state.chats)
     const {userID} = useAppSelector(state => state.user)
-    const navigation = useChatStackRoute()
+    const navigation = useChatStackNavigation()
 
     const renderMessage = ({item}:{item: Message}) => {
         const isCurrentUser = item.sender.id === userID
@@ -27,13 +28,14 @@ const ChatMessages = () => {
             >
                 <Text style={style.messageUsername}>{item.sender.firstName}</Text>
                 <Text style={style.messageContent}>{item.data}</Text>
+                <Text>{item.created}</Text>
             </View>
         )
     }
     return (
         <SafeAreaView style={style.container}>
           <View style={style.fixedTopContainer}>
-            <TouchableOpacity style={style.backButton} onPress={() => {}}> 
+            <TouchableOpacity style={style.backButton} onPress={() => navigation.navigate("ChatList")}> 
                 <Ionicons name="arrow-back" size={24} color={Colors.background_tab_bar} />
             </TouchableOpacity>
             <View style={style.userNameContainer}>
@@ -56,7 +58,7 @@ const ChatMessages = () => {
               getItemCount={(messages) => messages.length}
               getItem={(messages, index) => messages[index]}
               inverted={true}
-              onEndReached={() => {}}
+              onEndReached={fetchMessages}
               showsVerticalScrollIndicator={false}
             />
           </View>

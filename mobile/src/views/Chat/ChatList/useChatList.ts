@@ -6,6 +6,7 @@ import { Chat } from "@backend/database/entities/chat/Chat"
 import { useAppSelector } from "../../../redux/hooks"
 import { useAppDispatch } from "../../../redux/hooks"
 import { chatsSlice } from "../../../redux/features/chats"
+import {Chats} from "../../../redux/features/chats"
 
 export const useChatList = () => {
     const isFocused = useIsFocused()
@@ -20,13 +21,11 @@ export const useChatList = () => {
     const fetchChatList = async () => {
         try{
             const data = await chatAPI.list.get()
+            const chats : Chats = {}
             for(const chat of data.chats)[
-                dispatch(chatsSlice.actions.setChatWithID({
-                    chatID: chat.id,
-                    chat: chat
-                }))
+                chats[chat.id] = chat
             ]
-            console.log(data.chats.length)
+            dispatch(chatsSlice.actions.set(chats))
         }catch(err){
             // TODO handle errors
         }

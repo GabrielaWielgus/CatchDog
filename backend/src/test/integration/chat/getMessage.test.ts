@@ -33,7 +33,7 @@ describe("POST /chat", () => {
 
         const params : GetMessageRequest = {
             chatID: chat.id,
-            page: 1,
+            skip: 1,
             limit: 5
         }
 
@@ -52,7 +52,7 @@ describe("POST /chat", () => {
 
         const params : GetMessageRequest = {
             chatID: chat.id,
-            page: 1,
+            skip: 1,
             limit: 10
         }
         const response = await request(global.app).get("/chat/message").set("Authorization", `Bearer ${token}`).query(params).send()
