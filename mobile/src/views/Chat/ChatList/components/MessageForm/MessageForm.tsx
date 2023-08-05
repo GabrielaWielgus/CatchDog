@@ -4,6 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Colors } from "../../../../../config/Colors";
 import { style } from "./style";
 import useMessageForm from "./useMessageForm";
+import { User } from "@backend/database/entities/User";
 
 interface Props {
   close: () => void;
@@ -19,6 +20,7 @@ const MessageForm = (props: Props) => {
     handleBackspace,
     handleUnselect,
     handleClose,
+    handleChatCreate
   } = useMessageForm(props.close);
 
   return (
@@ -40,7 +42,7 @@ const MessageForm = (props: Props) => {
         {selectedItem && (
           <View style={style.selectedUserContainer}>
             <Text style={style.selectedUserTextBold}>Selected User:</Text>
-            <Text style={style.selectedUserText}>{selectedItem}</Text>
+            <Text style={style.selectedUserText}>{`${selectedItem.firstName} ${selectedItem.lastName}`}</Text>
             <TouchableOpacity onPress={handleUnselect} style={style.unselectButton}>
               <AntDesign name="delete" size={25} color={Colors.beige} />
             </TouchableOpacity>
@@ -49,22 +51,22 @@ const MessageForm = (props: Props) => {
         {searchResults.length > 0 && (
           <FlatList
             data={searchResults}
-            renderItem={({ item }) => (
+            renderItem={({item}: {item:User}) => (
               <TouchableOpacity
                 style={style.searchResultItem}
                 onPress={() => handleItemSelected(item)}
               >
-                <Text style={style.searchResultItemText}>{item}</Text>
+                <Text style={style.searchResultItemText}>{`${item.firstName} ${item.lastName}`}</Text>
               </TouchableOpacity>
             )}
-            keyExtractor={(item) => item.toString()}
-            scrollEnabled={false}
+            keyExtractor={(item) => item.id.toString()}
+            scrollEnabled={true}
             showsVerticalScrollIndicator={false}
           />
         )}
         <TouchableOpacity
           style={style.styledButton}
-          onPress={() => {}}
+          onPress={handleChatCreate}
         >
           <AntDesign name="message1" size={40} color={Colors.beige} />
           <Text style={style.buttonText}>Start chat</Text>

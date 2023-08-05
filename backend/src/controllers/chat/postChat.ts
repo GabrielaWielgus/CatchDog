@@ -8,6 +8,8 @@ import { ACCESS_TOKEN_EXPIRATION } from "../../config";
 import { ChatRepository } from "../../database/repositories/chat.repository";
 import { UserRepository } from "../../database/repositories/user.repository";
 import { getDataFromToken } from "../../utils/auth";
+import { MessageRepository } from "../../database/repositories/message.repository";
+import { Chat } from "../../database/entities/chat/Chat";
 
 export interface PostChatRequest {
     otherID: number
@@ -42,6 +44,17 @@ export const postChat = async (req:Request, res:Response, next:NextFunction) => 
         // Create chat
         const {chat, chatter1, chatter2} = await ChatRepository.createChatWithChatters(user1, user2)
 
+
+        // Insert first message
+        const _chat = await ChatRepository.findOneBy({id: chat.id})
+        const msg = MessageRepository.create({
+            chat: _chat,
+            data: "Hey lets chat :)",
+            sender: user1
+        })
+        await MessageRepository.save(msg)
+        
+
         // TOOD socket update
 
         const resData : PostChatResponse = {
@@ -50,6 +63,7 @@ export const postChat = async (req:Request, res:Response, next:NextFunction) => 
         res.status(HttpStatus.CREATED).json(resData)
        
     }catch(err){
+        console.log(err)
         next(err)
     }
 }

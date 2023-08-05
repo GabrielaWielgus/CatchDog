@@ -27,7 +27,7 @@ export const useChatList = () => {
             ]
             dispatch(chatsSlice.actions.set(chats))
         }catch(err){
-            // TODO handle errors
+            console.log(err)
         }
     }
 

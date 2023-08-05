@@ -19,7 +19,7 @@ export const seedMessages = async () => {
     }
     
     for(const chat of chats){
-        for(let i=0; i<20; i++){
+        for(let i=0; i<100; i++){
             await createMessage(chat, chat.chatters[Math.floor(Math.random()*chat.chatters.length)].user)
         }
     }

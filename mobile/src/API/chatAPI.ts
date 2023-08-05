@@ -8,6 +8,8 @@ import { SignupRequest } from "@backend/controllers/auth/signup"
 import { makeProtectedRequest } from "."
 import {GetChatResponse} from "@backend/controllers/chat/getChat"
 import {GetMessageResponse, GetMessageRequest} from "@backend/controllers/chat/message/getMessage"
+import {GetUsersRequest, GetUsersResponse} from "@backend/controllers/chat/getUsers"
+import {PostChatResponse, PostChatRequest} from "@backend/controllers/chat/postChat"
 
 export const chatAPI = {
     list: {
@@ -23,8 +25,19 @@ export const chatAPI = {
                 throw err
             }
         },
-        post: async () => {
-    
+        post: async (otherID: number) : Promise<PostChatResponse> => {
+            try{
+                const response = await makeProtectedRequest("POST", endpoints.chat.post, {
+                    otherID: otherID
+                })
+                if(response.status === 201){
+                    return response.data 
+                }else{
+                    throw new Error("Error creating new chat.")
+                }
+            }catch(err){
+                throw err
+            }
         },
     },
     message: {
@@ -46,6 +59,23 @@ export const chatAPI = {
         },
         post: async () => {
     
+        }
+    },
+    users: {
+        get: async (searchQuery: string) : Promise<GetUsersResponse> => {
+            const params : GetUsersRequest = {
+                searchQuery: searchQuery
+            }
+            try{
+                const response = await makeProtectedRequest("GET", endpoints.users.get, null, params)
+                if(response.status === 200){
+                    return response.data
+                }else{
+                    throw new Error("Error fetching chat users.")
+                }
+            }catch(err){
+                throw err
+            }
         }
     }
 }

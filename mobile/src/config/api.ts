@@ -18,5 +18,8 @@ export const endpoints = {
     message: {
         get: `${SERVER_BASE}/chat/message`,
         post: `${SERVER_BASE}/chat/message`
+    },
+    users: {
+        get: `${SERVER_BASE}/chat/users`
     }
 }

@@ -5,6 +5,7 @@ import { getChat } from "../controllers/chat/getChat";
 import { postChat } from "../controllers/chat/postChat";
 import { postMessage } from "../controllers/chat/message/postMessage";
 import { getMessage } from "../controllers/chat/message/getMessage";
+import { getUsers } from "../controllers/chat/getUsers";
 
 const router = Router()
 
@@ -12,6 +13,7 @@ router.post("/", auth, validate, postChat)
 router.get("/", auth, validate, getChat)
 router.post("/message", auth, validate, postMessage)
 router.get("/message", auth, validate, getMessage)
+router.get("/users", auth, validate, getUsers)
 //router.post("/message", auth, createMessageValidator, validate, createMessage)
 //router.get("/users", auth, getUsers)
 
