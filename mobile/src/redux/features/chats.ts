@@ -36,6 +36,12 @@ export const chatsSlice = createSlice({
             const chatMessages = [...state[chatID].messages]
             chatMessages.push(...messages)
             state[chatID] = {...state[chatID], messages: chatMessages}
+        },
+        insertMessage: (state, action: PayloadAction<{chatID: number, message:Message}>) => {
+            const {chatID, message} = action.payload
+            const chatMessages = [...state[chatID].messages]
+            chatMessages.unshift(message)
+            state[chatID] = {...state[chatID], messages: chatMessages}
         }
     }
 })

@@ -5,11 +5,13 @@ import { useChatStackNavigation } from "../../../../../navigators";
 import { useAppDispatch } from "../../../../../redux/hooks";
 import { chatsSlice } from "../../../../../redux/features/chats";
 import { Chats } from "../../../../../redux/features/chats";
+import { useFetchChatList } from "../../../../../hooks/useFetchChatList";
 
 const useMessageForm = (close: () => void) => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [selectedItem, setSelectedItem] = useState<User | null>(null);
+  const {fetchChatList} = useFetchChatList()
   
   const dispatch = useAppDispatch()
   const navigation = useChatStackNavigation()
@@ -28,13 +30,7 @@ const useMessageForm = (close: () => void) => {
     try{
         if(selectedItem){
           await chatAPI.list.post(selectedItem.id)
-          const res = await chatAPI.list.get()
-          const chats : Chats = {}
-          // Update chats redux state <-- replicated code from useChatList ! ! !
-          for(const chat of res.chats)[
-            chats[chat.id] = chat
-          ]
-          dispatch(chatsSlice.actions.set(chats))
+          await fetchChatList()
           close()
         }
         else{

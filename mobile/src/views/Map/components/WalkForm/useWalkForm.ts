@@ -40,22 +40,28 @@ export const useWalkForm = (props : props) => {
     })
 
     const handleSubmit = async (data:FormValues) => {
-        const location = await Location.getCurrentPositionAsync()
-        const payload : WalkUpdate = {
-            userID: user.userID as number,
-            walk: {
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                description: data.description,
-                behavioralDisorder: data.behavioralDisorder,
-                onLean: data.onLean,
-                userName: user.firstName,
-                started: DateTime.now().toISO()
+        try{
+            await Location.requestForegroundPermissionsAsync()
+            const location = await Location.getCurrentPositionAsync()
+            const payload : WalkUpdate = {
+                userID: user.userID as number,
+                walk: {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    description: data.description,
+                    behavioralDisorder: data.behavioralDisorder,
+                    onLean: data.onLean,
+                    userName: user.firstName,
+                    started: DateTime.now().toISO()
+                }
             }
+            dispatch(walksSlice.actions.setWalkWithID(payload))
+            await props.startLocationTracking()
+            props.closeForm()
         }
-        dispatch(walksSlice.actions.setWalkWithID(payload))
-        await props.startLocationTracking()
-        props.closeForm()
+        catch(err){
+            console.log(err)
+        }
     }
 
     const formik = useFormik({

@@ -10,6 +10,7 @@ import {GetChatResponse} from "@backend/controllers/chat/getChat"
 import {GetMessageResponse, GetMessageRequest} from "@backend/controllers/chat/message/getMessage"
 import {GetUsersRequest, GetUsersResponse} from "@backend/controllers/chat/getUsers"
 import {PostChatResponse, PostChatRequest} from "@backend/controllers/chat/postChat"
+import {PostMessageRequest, PostMessageResponse} from "@backend/controllers/chat/message/postMessage"
 
 export const chatAPI = {
     list: {
@@ -57,8 +58,17 @@ export const chatAPI = {
                 throw err
             }
         },
-        post: async () => {
-    
+        post: async (data:PostMessageRequest) => {
+            try{
+                const response = await makeProtectedRequest("POST", endpoints.message.post, data)
+                if(response.status === 201){
+                    return response.data
+                }else{
+                    throw new Error("Error creating message")
+                }
+            }catch(err){
+                err
+            }
         }
     },
     users: {

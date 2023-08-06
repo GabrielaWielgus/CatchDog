@@ -7,6 +7,7 @@ import { SECRET_KEY } from "../../../config/secret";
 import { ChatRepository } from "../../../database/repositories/chat.repository";
 import { MessageRepository } from "../../../database/repositories/message.repository";
 import { getDataFromToken } from "../../../utils/auth";
+import { activeUsers, getSocket } from "../../../socket";
 
 export interface PostMessageRequest {
     chatID: number
@@ -22,7 +23,12 @@ export const postMessage = async (req:Request, res:Response, next:NextFunction) 
         const data = req.body as PostMessageRequest
         const {userID} = getDataFromToken(req.headers.authorization.split(" ")[1]) 
 
-        const chat = await ChatRepository.findOneBy({id: data.chatID})
+        const chat = await ChatRepository.findOne({
+            where: {id: data.chatID},
+            relations: {
+                chatters: true
+            }
+        })
         if(!chat){
             throw new CustomError("Chat does not exist", 400)
         }
@@ -38,7 +44,15 @@ export const postMessage = async (req:Request, res:Response, next:NextFunction) 
         })
         await MessageRepository.save(msg)
 
-        // TODO socket update
+        // Socket update
+        for(const chatter of chat.chatters){
+            const receiver = activeUsers.get(chatter.user.id)
+            if(receiver){
+                getSocket().of("/chat").to(receiver.socketID).emit("newMessage", {
+                    message: msg
+                })
+            }
+        }
 
         const resData : PostMessageResponse = {
             message: "Message created"

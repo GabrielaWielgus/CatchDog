@@ -17,15 +17,15 @@ import { useAppSelector } from '../../redux/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '../../navigators/AppNavigator';
 import { refreshAccessToken } from '../../API';
+import { useRootStackNavigation } from '../../navigators';
 
 const Map = () => {
   const [formVisible, setFormVisible] = useState(false);
   const { tracking, startLocationTracking, stopLocationTracking} = useLocationTracking();
   const user = useAppSelector(state => state.user)
   const dispatch = useAppDispatch()
-  const navigation = useNavigation<StackNavigationProp<StackParamList>>()
+  const navigation = useRootStackNavigation()
 
   useEffect(() => {
     console.log("Map component mounted")

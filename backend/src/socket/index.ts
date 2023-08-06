@@ -1,11 +1,18 @@
 import * as io from "socket.io"
 import * as http from "http"
 import { auth } from "./middleware/auth"
+import { emit } from "process"
+import { validate } from "../middleware/validate"
 
 let socket : io.Server
 
 let mapNamespace : io.Namespace = undefined
 let chatNamespace : io.Namespace = undefined
+
+interface ActiveUser {
+    socketID: string
+}
+export const activeUsers = new Map<number, ActiveUser>()
 
 export const events = {
     map: {
@@ -14,7 +21,10 @@ export const events = {
         userDisconnet: "userDisconnect" // <-- explicit walk termination
     },
     chat: {
-        // TBD
+        disconnect: "disconnect",
+        userDisconnect: "userDisconnect",
+        newChat: "newChat",
+        newMessage: "newMessage"
     }
 }
 
@@ -45,11 +55,26 @@ export const initSocket = (httpServer:http.Server) => {
     })
 
     
-
     chatNamespace.on("connection", (socket:io.Socket) => {
         console.log("New connection to chat namespace")
+        const userData : ActiveUser = {
+            socketID: socket.id
+        }
+        socket.emit("connected", {socketID: socket.id})
+        activeUsers.set(Number(socket.handshake.query.userID), userData)
+        activeUsers.forEach((value, key) => {
+            console.log(key)
+            console.log(value)
+        })
         // Register handlers
-        // TBD...
+        socket.on(events.chat.disconnect, () => {
+            console.log("User connection terminated")
+            activeUsers.delete(Number(socket.handshake.query.userID))
+        })
+        socket.on(events.chat.userDisconnect, () => {
+            console.log("User disconnected from chat namespace")
+            activeUsers.delete(Number(socket.handshake.query.userID))
+        })
     })
 
     return socket

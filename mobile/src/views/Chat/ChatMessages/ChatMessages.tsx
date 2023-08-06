@@ -11,7 +11,7 @@ import { useChatStackNavigation } from "../../../navigators"
 
 const ChatMessages = () => {
     const route = useChatStackRoute()
-    const {fetchMessages} = useChatMessages(route.params?.chatID as number)
+    const {fetchMessages, input, handleInputChange, handleMessageSend} = useChatMessages(route.params?.chatID as number)
     const chats = useAppSelector(state => state.chats)
     const {userID} = useAppSelector(state => state.user)
     const navigation = useChatStackNavigation()
@@ -66,10 +66,11 @@ const ChatMessages = () => {
           <View style={style.inputContainer}>
             <TextInput
               style={style.input}
+              value={input}
               placeholder="Type message..."
-              onChangeText={() => {}}
+              onChangeText={handleInputChange}
             />
-            <TouchableOpacity style={style.sendButton} onPress={() => {}}>
+            <TouchableOpacity style={style.sendButton} onPress={handleMessageSend}>
               <Ionicons name="send" size={24} color={Colors.background_tab_bar} />
             </TouchableOpacity>
           </View>

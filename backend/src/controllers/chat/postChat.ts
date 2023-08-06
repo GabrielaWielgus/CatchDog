@@ -1,15 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../../utils/CustomError";
 import * as HttpStatus from "http-status"
-import * as bcrypt from "bcrypt"
-import * as jwt from "jsonwebtoken"
-import { SECRET_KEY } from "../../config/secret";
-import { ACCESS_TOKEN_EXPIRATION } from "../../config";
 import { ChatRepository } from "../../database/repositories/chat.repository";
 import { UserRepository } from "../../database/repositories/user.repository";
 import { getDataFromToken } from "../../utils/auth";
 import { MessageRepository } from "../../database/repositories/message.repository";
-import { Chat } from "../../database/entities/chat/Chat";
+import { getSocket, activeUsers, events } from "../../socket";
 
 export interface PostChatRequest {
     otherID: number
@@ -55,8 +51,15 @@ export const postChat = async (req:Request, res:Response, next:NextFunction) => 
         await MessageRepository.save(msg)
         
 
-        // TOOD socket update
-
+        // Send socket update
+        const receiver = activeUsers.get(data.otherID)
+        if(receiver){ 
+            const socket = getSocket()
+            socket.of("/chat").to(receiver.socketID).emit(events.chat.newChat, {
+                message: "New chat created"
+            })
+        }
+        
         const resData : PostChatResponse = {
             message: "Chat created"
         }
