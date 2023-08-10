@@ -2,6 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm"
 import { Walk } from "./Walk"
 import { Chatter } from "./chat/Chatter"
 import { Message } from "./chat/Message"
+import { Dog } from "./Dog"
 
 @Entity()
 export class User {
@@ -27,5 +28,9 @@ export class User {
     // One user has many messages
     @OneToMany(() => Message, message => message.sender)
     messages: Message[]
+
+    // One user has many dogs
+    @OneToMany(() => Dog, dog => dog.owner)
+    dogs: Dog[]
 }
 

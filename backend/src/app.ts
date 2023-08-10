@@ -13,6 +13,8 @@ import { UserRepository } from "./database/repositories/user.repository"
 import authRouter from "./routes/auth"
 import walkRouter from "./routes/walk"
 import chatRouter from "./routes/chat"
+import dogRouter from "./routes/dog"
+import treatmentRouter from "./routes/treatment"
 
 import { errorHandler, errorResponder } from "./middleware/error"
 import { seed } from "./database/seeders"
@@ -42,6 +44,8 @@ export const createApp = async () : Promise<App> => {
     app.use("/auth", authRouter)
     app.use("/walk", walkRouter)
     app.use("/chat", chatRouter)
+    app.use("/dog", dogRouter)
+    app.use("/treatment", treatmentRouter)
 
     // Global error handling
     app.use(errorHandler)

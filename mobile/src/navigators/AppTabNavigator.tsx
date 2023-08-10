@@ -6,12 +6,13 @@ import Walks from "../views/Walks/Walks"
 import HealthRecord from "../views/HealthRecord/HealtRecord"
 import Settings from "../views/Settings/Settings"
 import { ChatStackNavigator } from "./ChatStackNavigator"
+import {HealthRecordStackNavigator} from "./HealthRecordStackNavigator"
 
 export type AppTabParamList = {
   Map: undefined;
   Walks: undefined;
   ChatStackNavigator: undefined;
-  HealthRecord: undefined;
+  HealthRecordNavigator: undefined;
   Settings: undefined;
 };
 
@@ -40,7 +41,7 @@ export const AppTabNavigator = () => {
                     return focused ? <Ionicons name={"walk"} size={size} color={color} /> : <Ionicons name={"walk-outline"} size={size} color={color} />;
                 } else if (route.name === 'ChatStackNavigator') {
                     return focused ? <Ionicons name={"chatbubble"} size={size} color={color} /> : <Ionicons name={"chatbubble-outline"} size={size} color={color} />;
-                } else if (route.name === 'HealthRecord') {
+                } else if (route.name === 'HealthRecordNavigator') {
                     return focused ? <Ionicons name={"book"} size={size} color={color} /> : <Ionicons name={"book-outline"} size={size} color={color} />;
                 }
                 else if (route.name === 'Settings') {
@@ -68,8 +69,8 @@ export const AppTabNavigator = () => {
           options={{ tabBarLabel: () => null }}
         />
         <Tab.Screen
-          name="HealthRecord"
-          component={HealthRecord}
+          name="HealthRecordNavigator"
+          component={HealthRecordStackNavigator}
           options={{ tabBarLabel: () => null }}
         />
         <Tab.Screen

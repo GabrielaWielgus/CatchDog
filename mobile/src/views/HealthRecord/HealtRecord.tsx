@@ -5,6 +5,8 @@ import { Colors } from '../../config/Colors';
 import { style } from './style';
 import { StatusBar } from 'expo-status-bar';
 
+import {useHealthRecord}from "./useHealthRecord"
+
 interface DogRecord {
   id: number;
   name: string;
@@ -28,6 +30,8 @@ interface HealthRecordItem {
 type HealthRecordCategory = keyof DogRecord | null;
 
 const HealthRecord: React.FC = () => {
+  const {} = useHealthRecord()
+
   const [selectedDogIndex, setSelectedDogIndex] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<HealthRecordCategory | null>(null);
 

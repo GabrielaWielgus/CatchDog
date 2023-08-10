@@ -50,7 +50,6 @@ export const getChat = async (req:Request, res:Response, next:NextFunction) => {
         }
         res.status(HttpStatus.OK).json(resData)
     }catch(err){
-        console.log(err)
         next(err)
     }
 }

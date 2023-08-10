@@ -21,5 +21,16 @@ export const endpoints = {
     },
     users: {
         get: `${SERVER_BASE}/chat/users`
+    },
+    dog: {
+        get: `${SERVER_BASE}/dog`,
+        post: `${SERVER_BASE}/dog`,
+        treatment: {
+            post: `${SERVER_BASE}/dog/treatment`,
+            delete: `${SERVER_BASE}/dog/treatment`
+        }
+    },
+    treatment: {
+        get: `${SERVER_BASE}/treatment`
     }
 }
