@@ -21,5 +21,5 @@ export const AppDataSource = new DataSource({
     entities: [User, Walk, Chat, Chatter, Message, Dog, DogTreatment, Treatment], // <-- all entities have to be imported
     subscribers: [],
     migrations: [],
-    dropSchema: true // <-- DO NOT USE IN PRODUCTION
+    dropSchema: false // <-- SET TO FALSE IN PRODUCTION
 })

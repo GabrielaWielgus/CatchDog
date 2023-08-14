@@ -37,7 +37,6 @@ const AppRoot = () => {
             userID: JSON.parse(userID)
           }))
           setInitialRoute("Welcome")
-          //TODO update redux
         }
       }catch(err){
 

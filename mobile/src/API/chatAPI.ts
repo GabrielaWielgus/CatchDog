@@ -1,10 +1,4 @@
-import axios from "axios"
 import { endpoints } from "../config/api"
-import { SigninRequest } from "@backend/controllers/auth/signin"
-import { SigninResponse } from "@backend/controllers/auth/signin"
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import * as SecureStore from "expo-secure-store"
-import { SignupRequest } from "@backend/controllers/auth/signup"
 import { makeProtectedRequest } from "."
 import {GetChatResponse} from "@backend/controllers/chat/getChat"
 import {GetMessageResponse, GetMessageRequest} from "@backend/controllers/chat/message/getMessage"
@@ -61,13 +55,14 @@ export const chatAPI = {
         post: async (data:PostMessageRequest) => {
             try{
                 const response = await makeProtectedRequest("POST", endpoints.message.post, data)
+                console.log(response)
                 if(response.status === 201){
                     return response.data
                 }else{
                     throw new Error("Error creating message")
                 }
             }catch(err){
-                err
+                throw err
             }
         }
     },

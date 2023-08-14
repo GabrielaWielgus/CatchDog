@@ -14,20 +14,18 @@ export const authAPI = {
             const response = await axios.post(endpoints.auth.signin, data)
             if(response.status === 200){
                 const data = response.data as SigninResponse
-                if("accessToken" in data && "refreshToken" in data && "userID" in data){
-                    // Save to async-storage
-                    await AsyncStorage.setItem("accessToken", data.accessToken)
-                    await AsyncStorage.setItem("email", data.email)
-                    await AsyncStorage.setItem("userID", JSON.stringify(data.userID))
-                    await AsyncStorage.setItem("firstName", data.firstName)
-                    await AsyncStorage.setItem("lastName", data.lastName)
-                    // Save to secure-storage
-                    await SecureStore.setItemAsync("refreshToken", data.refreshToken)
+                
+                // Save to async-storage
+                await AsyncStorage.setItem("accessToken", data.accessToken)
+                await AsyncStorage.setItem("email", data.email)
+                await AsyncStorage.setItem("userID", JSON.stringify(data.userID))
+                await AsyncStorage.setItem("firstName", data.firstName)
+                await AsyncStorage.setItem("lastName", data.lastName)
+                // Save to secure-storage
+                await SecureStore.setItemAsync("refreshToken", data.refreshToken)
 
-                    return data
-                }else{
-                    throw new Error("Error signing in")
-                }
+                return data
+                
             }
         }catch(err){
             throw err

@@ -17,14 +17,7 @@ export const style = StyleSheet.create({
   healthRecordBlurredView: {
     backgroundColor: Colors.beige,
     borderRadius: 20,
-    padding: 15,
-    //position: 'absolute',
-    //top: '45%',
-    left: 0,
-    right: 0,
-    zIndex: 1,
-    opacity: 0.9,
-    margin: '2%',
+    padding: 5,
   },
   healthRecordContainer: {
     backgroundColor: Colors.background,
@@ -61,7 +54,7 @@ export const style = StyleSheet.create({
   },
   healthRecordImage: {
     width: '100%',
-    height: 300,
+    height: 320,
     borderRadius: 20,
     marginBottom: 0,
     marginHorizontal: 0,
@@ -90,5 +83,16 @@ export const style = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',backgroundColor: Colors.background_tab_bar,
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: Colors.beige,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    paddingBottom: "15%", 
+  },
+  bottomSpace: {
+    height: "15%", 
   },
 })

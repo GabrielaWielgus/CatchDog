@@ -34,4 +34,8 @@ export class IOSocket {
     public get = (): Socket | undefined => {
         return this.socket
     }
+
+    public disconnect = () => {
+        this.socket?.disconnect()
+    }
 }

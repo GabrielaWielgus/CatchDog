@@ -8,6 +8,7 @@ import { ChatRepository } from "../../../database/repositories/chat.repository";
 import { MessageRepository } from "../../../database/repositories/message.repository";
 import { getDataFromToken } from "../../../utils/auth";
 import { activeUsers, getSocket } from "../../../socket";
+import { UserRepository } from "../../../database/repositories/user.repository";
 
 export interface PostMessageRequest {
     chatID: number
@@ -22,7 +23,7 @@ export const postMessage = async (req:Request, res:Response, next:NextFunction) 
     try{
         const data = req.body as PostMessageRequest
         const {userID} = getDataFromToken(req.headers.authorization.split(" ")[1]) 
-
+        console.log(userID)
         const chat = await ChatRepository.findOne({
             where: {id: data.chatID},
             relations: {
@@ -32,7 +33,8 @@ export const postMessage = async (req:Request, res:Response, next:NextFunction) 
         if(!chat){
             throw new CustomError("Chat does not exist", 400)
         }
-        const user = await ChatRepository.findOneBy({id: userID})
+        const user = await UserRepository.findOneBy({id: userID})
+        console.log(user)
         if(!user){
             throw new CustomError("User does not exist", 400)
         }

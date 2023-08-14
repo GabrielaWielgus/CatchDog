@@ -55,6 +55,7 @@ export const useWalks = () => {
                 },
                 {
                     text: "Delete",
+                    style: "destructive",
                     onPress: () => {
                         setDeletingID(walkID);
                         deleteWalk(walkID);

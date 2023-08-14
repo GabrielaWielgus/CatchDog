@@ -8,6 +8,7 @@ import { Colors } from "../../config/Colors";
 import * as SecureStore from "expo-secure-store"
 import { useRootStackNavigation } from "../../navigators";
 import { useSettingsStackNavigation } from "../../navigators";
+import { chatSocket, mapSocket } from "../../socket";
 
 const Settings = () => {
     const user = useAppSelector(state => state.user)
@@ -15,6 +16,8 @@ const Settings = () => {
     const settingsNavigation = useSettingsStackNavigation()
 
     const handleLogout = async () => {
+        chatSocket.disconnect()
+        mapSocket.disconnect()
         await AsyncStorage.clear()
         SecureStore.deleteItemAsync("refreshToken")
         rootNavigation.navigate("Signin")

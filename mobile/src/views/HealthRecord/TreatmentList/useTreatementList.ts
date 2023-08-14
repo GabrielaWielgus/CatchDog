@@ -46,6 +46,7 @@ export const useTreatmentList = () => {
           },
           {
             text: "Delete",
+            style: "destructive",
             onPress: async () => {
               try {
                 await dogAPI.treatment.delete(

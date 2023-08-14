@@ -8,9 +8,9 @@ import { Chat } from "@backend/database/entities/chat/Chat";
 import { useAppSelector } from "../../../redux/hooks";
 import { useState } from "react";
 import MessageForm from "./components/MessageForm/MessageForm";
-import { useEffect } from "react";
 import { DateTime } from "luxon";
-import { Interval } from "luxon";
+import { StatusBar } from "expo-status-bar";
+
 
 const ChatList = () => {
     const {userID} = useAppSelector(state => state.user)
@@ -46,6 +46,7 @@ const ChatList = () => {
     
     return (
         <SafeAreaView style={{flex: 1}}>
+            <StatusBar style="dark" />
             <View style={style.containerChats}>
             <FlatList
                 data={sortChats(Object.values(chats))}

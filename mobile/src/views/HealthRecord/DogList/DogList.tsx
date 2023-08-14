@@ -1,53 +1,43 @@
-import { SafeAreaView } from "react-native"
-import { Text, Image } from "react-native"
-import { useFetchDogs } from "../useFetchDogs"
-import { useEffect } from "react"
-import { useIsFocused } from "@react-navigation/native"
-import { View, TouchableOpacity } from "react-native"
-import { StatusBar } from 'expo-status-bar';
-import { FlatList } from "react-native"
-import { ScrollView } from "react-native"
-import { Colors } from "../../../config/Colors"
-import { Ionicons } from "@expo/vector-icons"
-import { useState } from "react"
-import DogModal from "./components/DogModal/DogModal"
-import { Dog } from "@backend/database/entities/Dog"
-import {style} from "./style"
-import DogBadge from "./components/DogBadge/DogBadge"
-
-import { useAppSelector } from "../../../redux/hooks"
-import { useHealthRecordStackNavigation } from "../../../navigators"
+import React, { useState, useEffect } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, Image, Alert } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
+import { useFetchDogs } from '../useFetchDogs'
+import { useIsFocused } from '@react-navigation/native'
+import { Colors } from '../../../config/Colors'
+import { useAppSelector } from '../../../redux/hooks'
+import { useHealthRecordStackNavigation } from '../../../navigators'
+import DogModal from './components/DogModal/DogModal'
+import DogBadge from './components/DogBadge/DogBadge'
+import { style } from './style'
+import { StatusBar } from 'expo-status-bar'
 
 const DogList = () => {
-  const {fetchDogs} = useFetchDogs()
+  const { fetchDogs } = useFetchDogs()
   const isFocused = useIsFocused()
   const dogs = useAppSelector(state => state.dogs)
   const navigation = useHealthRecordStackNavigation()
-  const [formVisible, setFormVisible] = useState(false);
+  const [formVisible, setFormVisible] = useState(false)
 
   useEffect(() => {
-    if(isFocused === true){
-      fetchDogs()
+    if (isFocused === true) {
+      fetchDogs();
     }
-  }, [isFocused])
-
+  }, [isFocused]);
 
   return (
     <>
-    <ScrollView >
-      <StatusBar style="dark" />
-      <Image
-        style={style.healthRecordImage}
-        resizeMode="cover"
-        source={require('mobile/src/assets/img/background-healthRecord.png')}
-      />
-      <View style={style.healthRecordBlurredView}>
-        <Text style={style.healthRecordTitlePage}>Dog Health Record</Text>
-      </View>
-      {
-        dogs.map((dog, index) => {
-          return (
-          <DogBadge 
+    <StatusBar style="dark" />
+    <Image
+          style={style.healthRecordImage}
+          resizeMode="cover"
+          source={require('mobile/src/assets/img/background-healthRecord.png')}
+    />
+    <SafeAreaView style={style.safeArea}>
+      <ScrollView contentContainerStyle={style.scrollViewContent}>
+        <View style={style.healthRecordBlurredView}>
+        </View>
+        {dogs.map(dog => (
+          <DogBadge
             key={dog.id}
             name={dog.name}
             dogID={dog.id}
@@ -55,23 +45,22 @@ const DogList = () => {
             sex={dog.sex}
             age={dog.age}
           />
-          ) 
-        })
-      }
-    </ScrollView>
-    <TouchableOpacity style={style.Button} onPress={() => setFormVisible(true)}>
-      <View style={[style.addButton]}>
+        ))}
+        <View style={style.bottomSpace} />
+      </ScrollView>
+      <TouchableOpacity style={style.Button} onPress={() => setFormVisible(true)}>
+        <View style={[style.addButton]}>
           <Ionicons name="add" size={24} color={Colors.beige} />
-      </View>
-    </TouchableOpacity>
-    {
-      formVisible && (
+        </View>
+      </TouchableOpacity>
+      {formVisible && (
         <DogModal
           close={() => setFormVisible(false)}
         />
-      )
-    }
+      )}
+    </SafeAreaView>
     </>
+    
   )
 }
 
