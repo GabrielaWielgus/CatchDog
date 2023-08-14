@@ -52,7 +52,7 @@ export const style = StyleSheet.create({
     },
     input: {
         backgroundColor: Colors.button_primary,
-        width: "80%",
+        width: "90%",
         height: "6%",
         borderRadius: 20,
         paddingHorizontal: 10,   
@@ -60,5 +60,11 @@ export const style = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 4,
         shadowOffset: { width: 0, height: 1 }
-    }
+    },
+    backButton: {
+        position: "absolute",
+        top: "7%",
+        left: 20,
+        zIndex: 1, 
+    },
 })

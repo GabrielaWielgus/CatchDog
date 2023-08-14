@@ -52,8 +52,8 @@ const Walks = () => {
         <FlatList
           data={walks}
           renderItem={renderWalkItem}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{ marginTop: 10, paddingBottom: 20 }}
+          keyExtractor={(item, index) => index.toString()} 
+          style={style.flatList}
         />
       </View>
   );

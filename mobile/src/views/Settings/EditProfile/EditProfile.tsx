@@ -11,14 +11,19 @@ import { useIsFocused } from "@react-navigation/native"
 import { userAPI } from "../../../API/userAPI"
 import { AxiosError } from "axios"
 import { Alert } from "react-native"
+import { Ionicons } from "@expo/vector-icons"
+import { Colors } from "../../../config/Colors"
 
 import { useAppDispatch } from "../../../redux/hooks"
 import { userSlice } from "../../../redux/features/user"
+import { useSettingsStackNavigation } from "../../../navigators"
 
 const EditProfile = () => {
     const user = useAppSelector(state => state.user)
     const isFocused = useIsFocused()
     const dispatch = useAppDispatch()
+    const settingsNavigation = useSettingsStackNavigation()
+
     
     const [firstName, setFirstName] = useState(user.firstName)
     const [lastName, setLastName] = useState(user.lastName)
@@ -66,6 +71,9 @@ const EditProfile = () => {
                     resizeMode="cover"
                     source={require('mobile/src/assets/img/background-welcome.png')}
                 />
+                <TouchableOpacity style={style.backButton} onPress={() => settingsNavigation.navigate("Settings")}> 
+                <Ionicons name="arrow-back" size={24} color={Colors.beige} />
+            </TouchableOpacity>
                 <Text style={style.subTitle}>Edit First Name: </Text>
                 <TextInput 
                     style={style.input} 

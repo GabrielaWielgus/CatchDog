@@ -1,10 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { UserRepository } from "../../database/repositories/user.repository";
-import { CustomError } from "../../utils/CustomError";
 import * as HttpStatus from "http-status"
 import * as bcrypt from "bcrypt"
-import * as jwt from "jsonwebtoken"
-import { SECRET_KEY } from "../../config/secret";
 import { SALT_ROUNDS } from "../../config";
 
 
@@ -15,7 +12,6 @@ export interface SignupRequest {
     firstName: string
     lastName: string
 }
-
 
 export const signup = async (req:Request, res:Response, next:NextFunction) => {
     try{

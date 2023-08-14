@@ -5,7 +5,8 @@ const win = Dimensions.get("window")
 export const style = StyleSheet.create({
   walksViewStyle: {
     backgroundColor: Colors.beige,
-    paddingBottom: '17%',
+    flex: 1,
+    paddingBottom: '17.5%',
   },
   walkTitle: {
     fontSize: 25,
@@ -24,7 +25,7 @@ export const style = StyleSheet.create({
     left: '20%',
     right: 0,
     zIndex: 1,
-    opacity: 0.9,
+    opacity: 0.8,
     margin: '2%',
   },
   walkSubtitle: {
@@ -77,4 +78,7 @@ export const style = StyleSheet.create({
     marginBottom: 0,
     marginHorizontal: 0,
   },
-});
+  flatList: {
+    paddingTop: '2%',
+  },
+})

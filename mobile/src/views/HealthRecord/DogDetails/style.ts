@@ -20,6 +20,10 @@ export const style = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginBottom: 10,
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
   },
   treatmentText: {
     fontSize: 18,

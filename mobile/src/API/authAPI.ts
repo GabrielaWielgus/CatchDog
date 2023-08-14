@@ -5,6 +5,7 @@ import { SigninResponse } from "@backend/controllers/auth/signin"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import * as SecureStore from "expo-secure-store"
 import { SignupRequest } from "@backend/controllers/auth/signup"
+import { Alert } from "react-native"
 
 
 export const authAPI = {
@@ -34,9 +35,9 @@ export const authAPI = {
     },
     signup: async(data:SignupRequest) : Promise<void> => {
         try{
-            const response = await axios.post(endpoints.auth.signin, data)
+            const response = await axios.post(endpoints.auth.signup, data)
             if(response.status === 201){
-                //const data = response.data as SignupResponse
+                Alert.alert("Success", "Your account has been created. Please sign in.")
             }else{
                 throw new Error("Error signing up")
             }

@@ -1,62 +1,72 @@
-import { useState } from "react"
-import {GetWalkResponse} from "@backend/controllers/walk/getWalk"
-import type { Walk } from "@backend/database/entities/Walk"
-import { useEffect } from "react"
-import { useAppDispatch } from "../../redux/hooks"
-import { walkAPI } from "../../API/walkAPI"
-import {AxiosError} from "axios"
-import { useNavigation } from "@react-navigation/native"
-import { useFocusEffect } from "@react-navigation/native"
-import { useCallback } from "react"
+import { useState, useEffect } from "react"
+import { Walk } from "@backend/database/entities/Walk"
+import { AxiosError } from "axios"
 import { useIsFocused } from "@react-navigation/native"
+import { Alert } from "react-native"
+import { walkAPI } from "../../API/walkAPI"
 
 export const useWalks = () => {
     const [walks, setWalks] = useState<Walk[]>([])
-    const [deletingID, setDeletingID] = useState<number|null>(null)
+    const [deletingID, setDeletingID] = useState<number | null>(null)
     const isFocused = useIsFocused()
-    
+
     useEffect(() => {
-        if(isFocused == true){
+        if (isFocused) {
             console.log("focus in")
             fetchWalks()
         }
-        else if(isFocused === false){
-            console.log("focus out")
-        }
     }, [isFocused])
-    
 
     const fetchWalks = async () => {
         console.log("Fetching")
-        try{
+        try {
             const data = await walkAPI.get()
             setWalks(data.walks)
-        }catch(err){
-            if(err instanceof AxiosError){
-                if(err.response?.status === 401){
-                    // TODO navigate to signin
+        } catch (err) {
+            if (err instanceof AxiosError) {
+                if (err.response?.status === 401) {
+                    // TODO: Navigate to signin
                     console.log("Unauthorized navigate to signin")
                 }
             }
         }
-    }
+    };
 
-    const handleDelete = async (walkID:number) => {
-        try{
-            setDeletingID(walkID)
+    const deleteWalk = async (walkID: number) => {
+        try {
             const data = await walkAPI.delete(walkID)
             let tmp = JSON.parse(JSON.stringify(walks)) as Walk[]
             tmp = tmp.filter(w => w.id !== walkID)
             setWalks(tmp)
             setDeletingID(null)
-        }catch(err){
+        } catch (err) {
             console.log(err)
         }
+    };
+
+    const handleDelete = (walkID: number) => {
+        Alert.alert(
+            "Delete Walk",
+            "Are you sure you want to delete this walk?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+                {
+                    text: "Delete",
+                    onPress: () => {
+                        setDeletingID(walkID);
+                        deleteWalk(walkID);
+                    },
+                },
+            ]
+        )
     }
 
     return {
         walks,
         handleDelete,
-        deletingID
+        deletingID,
     }
 }

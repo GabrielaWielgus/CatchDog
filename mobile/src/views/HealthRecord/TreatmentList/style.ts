@@ -11,7 +11,12 @@ export const style = StyleSheet.create({
         backgroundColor: Colors.background,
         padding: 15,
         borderRadius: 20,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        marginVertical: 10,
+        shadowColor: "black",
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: 1 }
       },
       subListItemContainer: {
         flexDirection: 'row',
@@ -52,6 +57,12 @@ export const style = StyleSheet.create({
       subListItemTextBold: {
         fontWeight: 'bold', 
       },
+      backButton: {
+        position: "absolute",
+        top: "8%",
+        left: 20,
+        zIndex: 1, 
+    },
     })
 
     

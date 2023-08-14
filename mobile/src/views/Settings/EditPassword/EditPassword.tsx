@@ -10,9 +10,13 @@ import { Alert } from "react-native"
 import {PatchPasswordRequest} from "@backend/controllers/user/patchPassword"
 import { userAPI } from "../../../API/userAPI"
 import { AxiosError } from "axios"
-import type { CustomError } from "@backend/utils/CustomError"
+import { Ionicons } from "@expo/vector-icons"
+import { Colors } from "../../../config/Colors"
+import { useSettingsStackNavigation } from "../../../navigators"
 
 const EditPassword = () => {
+    const settingsNavigation = useSettingsStackNavigation()
+
     const [credentials, setCredentials] = useState<PatchPasswordRequest>({
         password: "",
         newPassword: "",
@@ -52,6 +56,9 @@ const EditPassword = () => {
                     resizeMode="cover"
                     source={require('mobile/src/assets/img/background-welcome.png')}
                 />
+                <TouchableOpacity style={style.backButton} onPress={() => settingsNavigation.navigate("Settings")}> 
+                <Ionicons name="arrow-back" size={24} color={Colors.beige} />
+                </TouchableOpacity>
                 <Text style={style.subTitle}>Provide current password: </Text>
                 <TextInput 
                     style={style.input} 

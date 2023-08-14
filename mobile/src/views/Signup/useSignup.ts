@@ -4,7 +4,6 @@ import {SignupRequest, } from "@backend/controllers/auth/signup"
 import * as Yup from "yup"
 import { useState } from "react"
 import axios from "axios"
-import { endpoints } from "../../config/api"
 import { authAPI } from "../../API/authAPI"
 import { useRootStackNavigation } from "../../navigators"
 
@@ -31,7 +30,7 @@ export const useSignup = () => {
     const handleSubmit = async (data:SignupRequest) => {
         try{
             await authAPI.signup(data)
-            navigation.navigate("AppTabNavigator")
+            navigation.navigate("Signin")
         }catch(err){
             if(err instanceof axios.AxiosError){
                 if(err.response?.data.errors){

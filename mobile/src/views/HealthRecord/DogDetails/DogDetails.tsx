@@ -1,21 +1,20 @@
 import React from "react";
-import { SafeAreaView, Text, TouchableOpacity, View, Image } from "react-native";
-import { useAppSelector } from "../../../redux/hooks";
-import { useHealthRecordStackRoute } from "../../../navigators";
-import { useHealthRecordStackNavigation } from "../../../navigators";
-import { Dog } from "@backend/database/entities/Dog";
-import { Treatment } from "@backend/database/entities/Treatment";
+import { SafeAreaView, Text, TouchableOpacity, View, Image } from "react-native"
+import { useAppSelector } from "../../../redux/hooks"
+import { useHealthRecordStackRoute } from "../../../navigators"
+import { useHealthRecordStackNavigation } from "../../../navigators"
+import { Dog } from "@backend/database/entities/Dog"
 import {style} from "./style"
 import { Ionicons } from "@expo/vector-icons"
-import { Colors } from "../../../config/Colors";
+import { Colors } from "../../../config/Colors"
 import { useState } from "react"
-import TreatmentModal from "./components/TreatmentModal/TreatmentModal";
+import TreatmentModal from "./components/TreatmentModal/TreatmentModal"
 
 const DogDetails = () => {
-  const dogs = useAppSelector((state) => state.dogs);
+  const dogs = useAppSelector((state) => state.dogs)
   const route = useHealthRecordStackRoute()
   const navigation = useHealthRecordStackNavigation()
-  const [formVisible, setFormVisible] = useState(false);
+  const [formVisible, setFormVisible] = useState(false)
 
   const getTypes = (dogs: Dog[]): string[] => {
     const dog = dogs.find((d) => d.id === route.params?.dogID)
@@ -73,4 +72,4 @@ const DogDetails = () => {
   )
 }
 
-export default DogDetails;
+export default DogDetails
