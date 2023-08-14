@@ -12,6 +12,9 @@ export const dogSlice = createSlice({
     set: (state, action:PayloadAction<Dog[]>) => {
       return action.payload
     },
+    addDog: (state, action:PayloadAction<Dog>) => {
+      state.push(action.payload)
+    },
     setDogTreatment: (state, action:PayloadAction<{dogID: number, dogTreatment: DogTreatment}>) => {
       const dogToUpdate = state.find(d => d.id === action.payload.dogID);
       if (dogToUpdate) {
@@ -27,6 +30,9 @@ export const dogSlice = createSlice({
           dogToUpdate.treatments = dogToUpdate.treatments.filter((t, index) => index !== treatmentIndex);
         }
       }
+    },
+    removeDog: (state, action:PayloadAction<number>) => {
+      return state.filter(d => d.id !== action.payload)
     }
   }
 })

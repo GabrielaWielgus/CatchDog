@@ -15,6 +15,7 @@ import walkRouter from "./routes/walk"
 import chatRouter from "./routes/chat"
 import dogRouter from "./routes/dog"
 import treatmentRouter from "./routes/treatment"
+import userRouter from "./routes/user"
 
 import { errorHandler, errorResponder } from "./middleware/error"
 import { seed } from "./database/seeders"
@@ -46,6 +47,7 @@ export const createApp = async () : Promise<App> => {
     app.use("/chat", chatRouter)
     app.use("/dog", dogRouter)
     app.use("/treatment", treatmentRouter)
+    app.use("/user", userRouter)
 
     // Global error handling
     app.use(errorHandler)

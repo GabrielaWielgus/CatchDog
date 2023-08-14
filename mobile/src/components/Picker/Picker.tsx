@@ -5,7 +5,7 @@ import { Colors } from '../../config/Colors';
 import { style } from "./style"
 import { Picker } from '@react-native-picker/picker';
 
-interface MyPickerProps {
+interface props {
   label: string;
   icon: any;
   selectedValue: string | undefined;
@@ -13,7 +13,7 @@ interface MyPickerProps {
   children: ReactNode;
 }
 
-const MyPicker: React.FC<MyPickerProps> = ({ label, icon, selectedValue, onValueChange, children }) => {
+const MyPicker = ({ label, icon, selectedValue, onValueChange, children } : props) => {
   return (
     <View>
       <View style={style.leftIcon}>

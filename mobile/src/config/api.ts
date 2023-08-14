@@ -13,18 +13,27 @@ export const endpoints = {
     },
     chat: {
         get: `${SERVER_BASE}/chat/`,
-        post: `${SERVER_BASE}/chat`
+        post: `${SERVER_BASE}/chat`,
+        users: {
+            get: `${SERVER_BASE}/chat/users`
+        }
     },
     message: {
         get: `${SERVER_BASE}/chat/message`,
         post: `${SERVER_BASE}/chat/message`
     },
-    users: {
-        get: `${SERVER_BASE}/chat/users`
+    user: {
+        password: {
+            patch: `${SERVER_BASE}/user/password`
+        },
+        data: {
+            patch: `${SERVER_BASE}/user/data`
+        }
     },
     dog: {
         get: `${SERVER_BASE}/dog`,
         post: `${SERVER_BASE}/dog`,
+        delete: `${SERVER_BASE}/dog`,
         treatment: {
             post: `${SERVER_BASE}/dog/treatment`,
             delete: `${SERVER_BASE}/dog/treatment`

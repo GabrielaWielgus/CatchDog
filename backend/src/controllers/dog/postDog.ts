@@ -38,7 +38,8 @@ export const postDog = async (req:Request, res:Response, next:NextFunction) => {
       sex: body.sex,
       age: body.age,
       breed: body.breed,
-      owner: owner
+      owner: owner,
+      treatments: []
     })
     await DogRepository.save(dog)
 

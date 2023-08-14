@@ -36,9 +36,8 @@ const Walks = () => {
  
 
   return (
-    <>
       <View style={style.walksViewStyle}>
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
         <View>
           <Image
             resizeMode="cover"
@@ -57,7 +56,6 @@ const Walks = () => {
           contentContainerStyle={{ marginTop: 10, paddingBottom: 20 }}
         />
       </View>
-    </>
   );
 };
 

@@ -33,7 +33,7 @@ export const RootStackNavigator = (props:props) => {
                 headerLeftContainerStyle: {
                 paddingLeft: 20,
                 },
-                headerLeft: undefined // null
+                headerLeft: () => null 
             }}
         >
             <Stack.Screen 

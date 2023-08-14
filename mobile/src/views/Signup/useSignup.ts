@@ -6,10 +6,11 @@ import { useState } from "react"
 import axios from "axios"
 import { endpoints } from "../../config/api"
 import { authAPI } from "../../API/authAPI"
-
+import { useRootStackNavigation } from "../../navigators"
 
 export const useSignup = () => {
     const [error, setError] = useState("")
+    const navigation = useRootStackNavigation()
 
     const initialValues : SignupRequest = {
         email: "",
@@ -30,6 +31,7 @@ export const useSignup = () => {
     const handleSubmit = async (data:SignupRequest) => {
         try{
             await authAPI.signup(data)
+            navigation.navigate("AppTabNavigator")
         }catch(err){
             if(err instanceof axios.AxiosError){
                 if(err.response?.data.errors){
@@ -37,7 +39,7 @@ export const useSignup = () => {
                     setError(err.response?.data.errors[0].msg)
                 }
             }else{
-                // TODO handle non axios errors
+                console.log(err)
             }
         }
     }

@@ -34,7 +34,7 @@ export const HealthRecordStackNavigator = () => {
                 headerLeftContainerStyle: {
                     paddingLeft: 20,
                 },
-                headerLeft: undefined // null
+                headerLeft: () => null 
             }}
         >
             <Stack.Screen 

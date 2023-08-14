@@ -77,7 +77,7 @@ export const chatAPI = {
                 searchQuery: searchQuery
             }
             try{
-                const response = await makeProtectedRequest("GET", endpoints.users.get, null, params)
+                const response = await makeProtectedRequest("GET", endpoints.chat.users.get, null, params)
                 if(response.status === 200){
                     return response.data
                 }else{

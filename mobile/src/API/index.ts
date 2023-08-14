@@ -22,17 +22,21 @@ export const refreshAccessToken = async () => {
 
 export const makeProtectedRequest = async (method: Method, url:string, data:any=null, params:any=null) => {
     const apiCall = async () : Promise<any> => {
-        const accessToken = await AsyncStorage.getItem("accessToken")
-        const response = await axios({
-            method,
-            url: url,
-            data: data,
-            params: params,
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        return response
+        try{
+            const accessToken = await AsyncStorage.getItem("accessToken")
+            const response = await axios({
+                method,
+                url: url,
+                data: data,
+                params: params,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            return response
+        }catch(err){
+           throw err
+        }
     }
 
     try{
@@ -40,16 +44,19 @@ export const makeProtectedRequest = async (method: Method, url:string, data:any=
         return response
     }catch(error){
         if(error instanceof axios.AxiosError){
-            console.log(error)
             if(error.response?.status === 401){
-                await refreshAccessToken()
-                const response = await apiCall()
-                return response
+                try{
+                    await refreshAccessToken()
+                    const response = await apiCall()
+                    return response
+                }catch(error){
+                    throw error
+                }
+            }else{
+                throw error
             }
         }else{
-            throw new Error("Error making request to protected endpoint", {
-                cause: error
-            })
+            throw error
         }
     }
 }

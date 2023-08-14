@@ -268,7 +268,7 @@ const HealthRecord: React.FC = () => {
       <Image
         style={style.healthRecordImage}
         resizeMode="cover"
-        source={require('../../assets/img/background-healthRecord.png')}
+        source={require('mobile/src/assets/img/background-healthRecord.png')}
       />
       <View style={style.healthRecordBlurredView}>
         <Text style={style.healthRecordTitlePage}>Dog Health Record</Text>

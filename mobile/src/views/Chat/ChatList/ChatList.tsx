@@ -57,7 +57,7 @@ const ChatList = () => {
             <View style={[style.addButton]}>
                 <Ionicons name="search" size={24} color={Colors.beige} />
             </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
 
         {formVisible && (
             <MessageForm

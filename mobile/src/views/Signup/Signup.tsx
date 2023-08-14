@@ -8,13 +8,11 @@ import { Octicons } from "@expo/vector-icons"
 import Input from "../../components/TextInput/Input"
 import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../../config/Colors"
-import { StackParamList } from "../../navigators/AppNavigator"
-import { StackNavigationProp } from "@react-navigation/stack"
-import { NavigationParams } from "../../navigators"
+import {useRootStackNavigation} from "../../navigators/index"
 
 const Signup = () => {
     const {formik, error} = useSignup()
-    const navigation = useNavigation<NavigationParams>()
+    const navigation = useRootStackNavigation()
 
     return(
         <KeyboardAwareScrollView style={style.signin}>
@@ -37,7 +35,7 @@ const Signup = () => {
                 <Input 
                     placeholder="Last name"
                     onChangeText={formik.handleChange('lastName')}
-                    value={formik.values.firstName}
+                    value={formik.values.lastName}
                     onBlur={formik.handleBlur("lastName")}
                     password={false}
                     label="Last name"
