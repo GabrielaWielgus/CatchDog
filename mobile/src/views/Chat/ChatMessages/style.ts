@@ -28,7 +28,6 @@ export const style = StyleSheet.create({
     color: Colors.background_tab_bar,
   },
 
-
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -58,7 +57,6 @@ export const style = StyleSheet.create({
     backgroundColor: Colors.beige,
   },
 
-
   messagesContainer: {
     paddingHorizontal: 10,
     height: win.height - 250,
@@ -79,6 +77,7 @@ export const style = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   messageUsername: {
+    flexDirection: "row",
     fontSize: 14,
     fontWeight: "bold",
     color: Colors.beige,
@@ -86,6 +85,12 @@ export const style = StyleSheet.create({
   messageContent: {
     color: Colors.beige,
   },
+  formattedDate: {
+    flexDirection: "row",
+    fontSize: 12,
+    color: Colors.beige,
+    marginLeft: 5,
+  },  
   backButton: {
     position: "absolute",
     top: 15,

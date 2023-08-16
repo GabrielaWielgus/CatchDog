@@ -59,6 +59,7 @@ export const style = StyleSheet.create({
     color: Colors.beige,
     marginRight: 10,
     fontWeight: 'bold',
+    paddingBottom: 4,
   },
   inputField: {
     flex: 1,

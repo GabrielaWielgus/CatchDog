@@ -37,7 +37,7 @@ export const style = StyleSheet.create({
     color: Colors.text_primary,
   },
   walkBubble: {
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.background_tab_bar,
     borderRadius: 15,
     padding: 15,
     marginBottom: 10,
