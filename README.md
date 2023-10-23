@@ -1,7 +1,5 @@
 # Mobile App for Real-Time Location Tracking and Chat with Dog Health Diary
-
-![mockup_login](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/b39e38df-54bd-42cb-8fbb-b1636796de14)
-![mockup_maps](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/bde254c3-0664-4ed9-a033-4021ecff5836)
+![mockups_maps](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/03e63d0b-389b-4b05-b076-d9d37cb7caa9)
 ![mockup_walks_history](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/a17344a0-b71d-4909-a6de-30436a6175d5)
 ![mockups_chat](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/54f83b62-5bcc-41dd-9192-b5f57de5e454)
 ![mockups_helath_record](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/d24707e7-bcf3-4151-a184-3fd888e5b02c)
