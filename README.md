@@ -1,14 +1,14 @@
 # Mobile App for Real-Time Location Tracking and Chat with Dog Health Diary
+
+## Project Description
+
+The project focuses on the implementation of a mobile application that allows real-time location tracking of users, provides a chat feature, and handles data related to pet care.
+
 ![mockups_maps](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/03e63d0b-389b-4b05-b076-d9d37cb7caa9)
 ![mockup_walks_history](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/a17344a0-b71d-4909-a6de-30436a6175d5)
 ![mockups_chat](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/54f83b62-5bcc-41dd-9192-b5f57de5e454)
 ![mockups_helath_record](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/d24707e7-bcf3-4151-a184-3fd888e5b02c)
 ![mockups_settings](https://github.com/GabrielaWielgus/CatchDog/assets/75125063/55e99af5-6dca-40ff-9764-a5d5b8c16fe8)
-
-
-## Project Description
-
-The project focuses on the implementation of a mobile application that allows real-time location tracking of users, provides a chat feature, and handles data related to pet care.
 
 ## Implementation
 
@@ -65,4 +65,4 @@ The application allows:
 
 ## License
 
-This project is available under the MIT license - detailed information can be found in the [LICENSE.md](LICENSE.md) file.
+This project is available under the MIT license - detailed information can be found in the [LICENSE.md]([LICENSE.md](https://github.com/GabrielaWielgus/CatchDog/blob/054367ac3eb39725c59ab199b42d1a240ff3e769/LICENSE)https://github.com/GabrielaWielgus/CatchDog/blob/054367ac3eb39725c59ab199b42d1a240ff3e769/LICENSE) file.
