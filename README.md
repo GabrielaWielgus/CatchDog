@@ -65,4 +65,4 @@ The application allows:
 
 ## License
 
-This project is available under the MIT license - detailed information can be found in the [LICENSE.md]([LICENSE.md](https://github.com/GabrielaWielgus/CatchDog/blob/054367ac3eb39725c59ab199b42d1a240ff3e769/LICENSE)https://github.com/GabrielaWielgus/CatchDog/blob/054367ac3eb39725c59ab199b42d1a240ff3e769/LICENSE) file.
+This project is available under the MIT license - detailed information can be found in the [LICENSE](https://github.com/GabrielaWielgus/CatchDog/blob/054367ac3eb39725c59ab199b42d1a240ff3e769/LICENSE) file.
